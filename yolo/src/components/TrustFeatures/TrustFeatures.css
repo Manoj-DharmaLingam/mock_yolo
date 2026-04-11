@@ -1,0 +1,61 @@
+.yolo-trust {
+  background: #0a0a0a;
+  border-top: 1px solid rgba(255,255,255,0.06);
+  padding: 3rem 0;
+}
+.yolo-trust__grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+}
+.yolo-trust__item {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  padding: 1.5rem 2rem;
+  border-right: 1px solid rgba(255,255,255,0.06);
+  transition: background 0.22s,
+              opacity 0.65s cubic-bezier(0.4,0,0.2,1),
+              transform 0.65s cubic-bezier(0.4,0,0.2,1);
+}
+.yolo-trust__item:last-child { border-right: none; }
+.yolo-trust__item:hover { background: rgba(255,255,255,0.02); }
+
+.yolo-trust__icon {
+  width: 42px; height: 42px;
+  border: 1px solid rgba(255,255,255,0.12);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transition: border-color 0.22s, background 0.22s;
+}
+.yolo-trust__icon svg { width: 18px; height: 18px; color: rgba(255,255,255,0.6); }
+.yolo-trust__item:hover .yolo-trust__icon {
+  border-color: #e8ff00;
+  background: rgba(232,255,0,0.08);
+}
+.yolo-trust__item:hover .yolo-trust__icon svg { color: #e8ff00; }
+
+.yolo-trust__name {
+  font-size: 0.84rem;
+  font-weight: 600;
+  color: rgba(255,255,255,0.88);
+  margin-bottom: 0.25rem;
+}
+.yolo-trust__desc {
+  font-size: 0.76rem;
+  color: rgba(255,255,255,0.35);
+  line-height: 1.6;
+}
+
+@media (max-width: 900px) {
+  .yolo-trust__grid { grid-template-columns: repeat(2, 1fr); }
+  .yolo-trust__item:nth-child(2n) { border-right: none; }
+  .yolo-trust__item { border-bottom: 1px solid rgba(255,255,255,0.06); }
+  .yolo-trust__item:nth-last-child(-n+2) { border-bottom: none; }
+}
+@media (max-width: 480px) {
+  .yolo-trust__grid { grid-template-columns: 1fr; }
+  .yolo-trust__item { border-right: none; }
+}

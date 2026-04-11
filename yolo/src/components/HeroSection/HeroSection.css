@@ -1,0 +1,191 @@
+.yolo-hero {
+  position: relative;
+  min-height: 92vh;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  background: #0a0a0a;
+}
+
+/* ── Slides container ── */
+.yolo-hero__slides {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+
+.yolo-hero__slide {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transition: opacity 0.7s ease;
+}
+.yolo-hero__slide--active { opacity: 1; }
+
+/* ── BG image ── */
+.yolo-hero__bg {
+  position: absolute;
+  inset: 0;
+}
+.yolo-hero__bg img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 20%;
+  filter: grayscale(20%);
+}
+.yolo-hero__overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    105deg,
+    rgba(0,0,0,0.88) 0%,
+    rgba(0,0,0,0.5) 55%,
+    rgba(0,0,0,0.15) 100%
+  );
+}
+
+/* ── Content ── */
+.yolo-hero__content {
+  position: relative;
+  z-index: 2;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding-bottom: 6rem;
+  padding-top: 8rem;
+  gap: 3rem;
+}
+
+.yolo-hero__left { max-width: 620px; }
+
+.yolo-hero__label {
+  display: inline-block;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: #e8ff00;
+  margin-bottom: 2rem;
+  border-bottom: 1px solid rgba(232,255,0,0.4);
+  padding-bottom: 0.4rem;
+}
+
+.yolo-hero__title {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(4rem, 10vw, 9rem);
+  line-height: 0.92;
+  letter-spacing: 0.04em;
+  color: #fff;
+  margin-bottom: 2.2rem;
+}
+.yolo-hero__title em {
+  font-style: italic;
+  color: #e8ff00;
+}
+
+.yolo-hero__desc {
+  font-size: 1.05rem;
+  color: rgba(255,255,255,0.65);
+  line-height: 1.9;
+  margin-bottom: 2.8rem;
+  max-width: 460px;
+}
+
+.yolo-hero__btns {
+  display: flex;
+  gap: 1.2rem;
+  flex-wrap: wrap;
+}
+
+/* ── Ticker ── */
+.yolo-hero__ticker {
+  position: relative;
+  z-index: 2;
+  background: #e8ff00;
+  overflow: hidden;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+}
+.yolo-hero__ticker-track {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  white-space: nowrap;
+  animation: ticker 18s linear infinite;
+}
+.yolo-hero__ticker-track span {
+  display: inline-flex;
+  align-items: center;
+  gap: 1rem;
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 0.95rem;
+  letter-spacing: 0.18em;
+  color: #0a0a0a;
+  padding: 0 1.5rem;
+}
+.yolo-ticker-dot {
+  font-size: 0.7rem;
+  opacity: 0.5;
+}
+@keyframes ticker {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+/* ── Nav arrows ── */
+.yolo-hero__arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 4;
+  background: rgba(0,0,0,0.35);
+  border: none;
+  border-radius: 50%;
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background 0.2s;
+  color: #fff;
+}
+.yolo-hero__arrow:hover { background: rgba(0,0,0,0.65); }
+.yolo-hero__arrow svg { width: 22px; height: 22px; }
+.yolo-hero__arrow--prev { left: 1.5rem; }
+.yolo-hero__arrow--next { right: 1.5rem; }
+
+/* ── Dot indicators ── */
+.yolo-hero__dots {
+  position: absolute;
+  bottom: 3.5rem;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 4;
+  display: flex;
+  gap: 0.5rem;
+}
+.yolo-hero__dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  border: none;
+  background: rgba(255,255,255,0.35);
+  cursor: pointer;
+  transition: background 0.25s, transform 0.25s;
+  padding: 0;
+}
+.yolo-hero__dot--active {
+  background: #e8ff00;
+  transform: scale(1.35);
+}
+
+@media (max-width: 768px) {
+  .yolo-hero { min-height: 80vh; }
+  .yolo-hero__title { font-size: clamp(3.5rem, 14vw, 5rem); }
+  .yolo-hero__content { padding-top: 5rem; padding-bottom: 5rem; }
+}

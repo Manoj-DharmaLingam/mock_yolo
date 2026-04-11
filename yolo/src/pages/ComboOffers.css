@@ -1,0 +1,206 @@
+/* ========================================
+   YOLO Combo Offers Page - Matching Product Card Style
+   ======================================== */
+
+/* Combo Page List View */
+.combo-page {
+  background: #fff;
+  min-height: 60vh;
+}
+
+.combo-page__header {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  margin-bottom: 2.5rem;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.combo-page__grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.25rem;
+}
+
+@media (max-width: 1100px) { .combo-page__grid { grid-template-columns: repeat(3, 1fr); } }
+@media (max-width: 768px)  { .combo-page__grid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 420px)  { .combo-page__grid { grid-template-columns: 1fr; } }
+
+/* Placeholder for combo cards without images */
+.yolo-card__placeholder {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #f5f5f5;
+}
+
+.yolo-card__placeholder-text {
+  font-size: 0.75rem;
+  color: #999;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* Loading */
+.combo-page__loading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 40vh;
+}
+
+.yolo-spinner {
+  width: 40px;
+  height: 40px;
+  border: 3px solid #eee;
+  border-top-color: #0a0a0a;
+  border-radius: 50%;
+  animation: yolo-spin 0.7s linear infinite;
+}
+
+@keyframes yolo-spin {
+  to { transform: rotate(360deg); }
+}
+
+/* Empty State */
+.combo-page__empty {
+  text-align: center;
+  padding: 60px 20px;
+}
+
+.combo-page__empty h3 {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 2rem;
+  color: #0a0a0a;
+  margin: 0 0 12px;
+}
+
+.combo-page__empty p {
+  color: #666;
+  margin-bottom: 24px;
+}
+
+/* ========================================
+   Combo Detail Page - No Image Placeholder
+   Must match yolo-pd__main-img aspect ratio
+   ======================================== */
+
+.yolo-combo__no-img {
+  width: 100%;
+  height: 100%;
+  min-height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #f5f5f5;
+  color: #999;
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  /* Ensure placeholder respects parent's aspect-ratio */
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+
+/* ========================================
+   Combo Item Selectors
+   ======================================== */
+
+.yolo-combo__items {
+  margin-top: 1.5rem;
+  margin-bottom: 1rem;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.75rem;
+}
+
+.yolo-combo__items-title {
+  grid-column: 1 / -1; /* Title spans full width */
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1.2rem;
+  color: #0a0a0a;
+  margin-bottom: 0.25rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+/* All items side by side in pairs */
+/* Item 1 & 2 - first row */
+/* Item 3 & 4 - second row */
+.yolo-combo__item-box {
+  grid-column: span 1;
+}
+
+@media (max-width: 600px) {
+  .yolo-combo__items {
+    grid-template-columns: 1fr;
+  }
+  
+  .yolo-combo__item-box {
+    grid-column: 1 / -1;
+  }
+}
+
+.yolo-combo__item-box {
+  background: #fafafa;
+  border: 1.5px solid #e0e0e0;
+  padding: 1rem 1.25rem;
+  transition: border-color 0.18s;
+}
+
+.yolo-combo__item-box:hover {
+  border-color: #ccc;
+}
+
+.yolo-combo__item-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.75rem;
+}
+
+.yolo-combo__item-num {
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #0a0a0a;
+}
+
+.yolo-combo__item-selected {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 0.68rem;
+  color: #27ae60;
+  font-weight: 600;
+}
+
+.yolo-combo__item-selected svg {
+  width: 14px;
+  height: 14px;
+}
+
+/* ========================================
+   Savings Box
+   ======================================== */
+
+.yolo-combo__savings-box {
+  margin-top: 1rem;
+  padding: 0.875rem 1.25rem;
+  background: #e8ff00;
+  text-align: center;
+}
+
+.yolo-combo__savings-box span {
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: #0a0a0a;
+  letter-spacing: 0.02em;
+}

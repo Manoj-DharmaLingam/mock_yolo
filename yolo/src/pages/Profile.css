@@ -1,0 +1,294 @@
+.profile-page { background: #fff; padding: 3rem 0 5rem; min-height: 70vh; }
+.profile-loading { display: flex; align-items: center; justify-content: center; min-height: 60vh; }
+.profile-header { margin-bottom: 2.5rem; }
+.profile-title {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(2rem, 4vw, 3rem);
+  letter-spacing: 0.03em;
+  color: #0a0a0a;
+  margin: 0;
+}
+
+.profile-layout {
+  display: grid;
+  grid-template-columns: 220px 1fr;
+  gap: 3rem;
+  align-items: start;
+}
+
+.profile-sidebar {
+  position: sticky;
+  top: 100px;
+  text-align: center;
+  background: #f9f9f9;
+  border: 1px solid #e0e0e0;
+  padding: 2rem 1.5rem;
+  border-radius: 4px;
+}
+
+.profile-avatar {
+  width: 72px; height: 72px;
+  background: #0a0a0a; color: #e8ff00;
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 2rem;
+  margin: 0 auto 1rem;
+}
+
+.profile-name { font-weight: 700; font-size: 1rem; color: #0a0a0a; }
+.profile-email { font-size: 0.8rem; color: #888; margin-top: 0.25rem; word-break: break-all; }
+
+.profile-card {
+  border: 1px solid #e0e0e0;
+  padding: 2rem;
+  border-radius: 4px;
+}
+
+.profile-card-title {
+  font-size: 1rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin: 0 0 1.5rem;
+  color: #0a0a0a;
+}
+
+.profile-fields {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.25rem;
+}
+
+.profile-field { display: flex; flex-direction: column; gap: 0.4rem; }
+.profile-field--full { grid-column: 1 / -1; }
+
+.profile-field label {
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #555;
+}
+
+.profile-field input,
+.profile-field textarea {
+  padding: 0.7rem 0.875rem;
+  border: 1px solid #e0e0e0;
+  border-radius: 4px;
+  font-size: 0.9rem;
+  font-family: inherit;
+  outline: none;
+  transition: border-color 0.18s;
+  resize: vertical;
+}
+
+.profile-field input:focus,
+.profile-field textarea:focus { border-color: #0a0a0a; }
+
+.profile-alert {
+  padding: 0.75rem 1rem;
+  border-radius: 4px;
+  font-size: 0.875rem;
+  margin-bottom: 1.25rem;
+}
+.profile-alert--error { background: #fdecea; color: #c0392b; }
+.profile-alert--success { background: #eafaf1; color: #27ae60; }
+
+@media (max-width: 768px) {
+  .profile-layout { grid-template-columns: 1fr; }
+  .profile-sidebar { position: static; }
+  .profile-fields { grid-template-columns: 1fr; }
+}
+
+/* ── Profile Card Header ─────────────────────────────────────── */
+
+.profile-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1.25rem;
+}
+
+.profile-card-header .profile-card-title {
+  margin: 0;
+}
+
+/* ── Address List ────────────────────────────────────────────── */
+
+.addr-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  margin-top: 1rem;
+}
+
+.addr-card {
+  border: 1.5px solid #e5e7eb;
+  border-radius: 12px;
+  padding: 1rem 1.1rem;
+  transition: border-color 0.15s;
+}
+
+.addr-card--default {
+  border-color: #111;
+}
+
+.addr-card__head {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 4px;
+}
+
+.addr-card__label {
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: #374151;
+}
+
+.addr-card__default-badge {
+  font-size: 0.65rem;
+  font-weight: 700;
+  background: #111;
+  color: #fff;
+  border-radius: 99px;
+  padding: 1px 7px;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.addr-card__name {
+  font-weight: 600;
+  font-size: 0.9rem;
+  margin-bottom: 2px;
+}
+
+.addr-card__text {
+  font-size: 0.82rem;
+  color: #6b7280;
+  line-height: 1.4;
+  margin-bottom: 0.75rem;
+}
+
+.addr-card__actions {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.addr-action-btn {
+  background: none;
+  border: 1.5px solid #e5e7eb;
+  border-radius: 7px;
+  padding: 3px 10px;
+  font-size: 0.78rem;
+  font-weight: 600;
+  cursor: pointer;
+  color: #374151;
+  transition: all 0.15s;
+  font-family: inherit;
+}
+
+.addr-action-btn:hover {
+  border-color: #111;
+  color: #111;
+}
+
+.addr-action-btn--danger {
+  border-color: #fca5a5;
+  color: #ef4444;
+}
+
+.addr-action-btn--danger:hover {
+  background: #ef4444;
+  border-color: #ef4444;
+  color: #fff;
+}
+
+/* ── Address Form ────────────────────────────────────────────── */
+
+.addr-form-wrap {
+  background: #f9fafb;
+  border: 1.5px solid #e5e7eb;
+  border-radius: 12px;
+  padding: 1.1rem 1.25rem;
+  margin-bottom: 0.75rem;
+}
+
+.addr-form-wrap__title {
+  font-size: 0.8rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: #6b7280;
+  margin-bottom: 0.85rem;
+}
+
+.addr-form__grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.75rem;
+}
+
+.addr-form__field {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.addr-form__field--full {
+  grid-column: 1 / -1;
+}
+
+.addr-form__field label {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: #374151;
+}
+
+.addr-form__field input,
+.addr-form__field select,
+.addr-form__field textarea {
+  border: 1.5px solid #e5e7eb;
+  border-radius: 8px;
+  padding: 0.45rem 0.65rem;
+  font-size: 0.88rem;
+  outline: none;
+  transition: border-color 0.15s;
+  font-family: inherit;
+  resize: none;
+}
+
+.addr-form__field input:focus,
+.addr-form__field select:focus,
+.addr-form__field textarea:focus {
+  border-color: #111;
+}
+
+.addr-form__check-label {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.85rem;
+  cursor: pointer;
+  font-weight: 500;
+}
+
+.addr-form__check-label input {
+  width: 15px;
+  height: 15px;
+  flex-shrink: 0;
+  accent-color: #111;
+  border: none;
+  border-radius: 0;
+  padding: 0;
+}
+
+.addr-form__actions {
+  display: flex;
+  gap: 0.6rem;
+  margin-top: 1rem;
+}

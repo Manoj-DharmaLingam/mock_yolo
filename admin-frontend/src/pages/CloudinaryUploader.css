@@ -1,0 +1,261 @@
+.cu-page {
+  padding: 2rem;
+  max-width: 960px;
+}
+
+/* ── Header ──────────────────────────────────────────────── */
+.cu-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 1.75rem;
+  flex-wrap: wrap;
+}
+.cu-title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin: 0 0 0.25rem;
+}
+.cu-subtitle {
+  font-size: 0.85rem;
+  color: #6b7280;
+  margin: 0;
+}
+.cu-header-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+/* ── Buttons ──────────────────────────────────────────────── */
+.cu-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.5rem 1.1rem;
+  border-radius: 6px;
+  border: 1.5px solid #d1d5db;
+  background: #fff;
+  cursor: pointer;
+  font-size: 0.84rem;
+  font-weight: 600;
+  transition: background 0.15s, border-color 0.15s;
+  white-space: nowrap;
+}
+.cu-btn--primary {
+  background: #111;
+  color: #fff;
+  border-color: #111;
+}
+.cu-btn--primary:hover { background: #333; }
+.cu-btn--ghost:hover { background: #f3f4f6; }
+.cu-btn--danger { color: #ef4444; border-color: #fca5a5; }
+.cu-btn--danger:hover { background: #fef2f2; }
+.cu-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+
+/* ── Drop zone ───────────────────────────────────────────── */
+.cu-dropzone {
+  border: 2px dashed #d1d5db;
+  border-radius: 12px;
+  padding: 3rem 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  cursor: pointer;
+  transition: border-color 0.2s, background 0.2s;
+  background: #fafafa;
+  user-select: none;
+  margin-bottom: 1.5rem;
+}
+.cu-dropzone:hover,
+.cu-dropzone--active {
+  border-color: #6366f1;
+  background: #eef2ff;
+}
+.cu-dropzone__icon { color: #9ca3af; }
+.cu-dropzone--active .cu-dropzone__icon { color: #6366f1; }
+.cu-dropzone__primary {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #374151;
+  margin: 0;
+}
+.cu-dropzone__hint {
+  font-size: 0.8rem;
+  color: #9ca3af;
+  margin: 0;
+}
+.cu-hidden-input { display: none; }
+
+/* ── Stats bar ───────────────────────────────────────────── */
+.cu-stats {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 1.25rem;
+  flex-wrap: wrap;
+}
+.cu-stat {
+  font-size: 0.78rem;
+  font-weight: 600;
+  padding: 0.2rem 0.65rem;
+  border-radius: 99px;
+  background: #f3f4f6;
+  color: #6b7280;
+}
+.cu-stat--pending   { background: #fef3c7; color: #92400e; }
+.cu-stat--uploading { background: #dbeafe; color: #1e40af; }
+.cu-stat--done      { background: #d1fae5; color: #065f46; }
+.cu-stat--error     { background: #fee2e2; color: #991b1b; }
+
+/* ── Grid ────────────────────────────────────────────────── */
+.cu-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1rem;
+}
+
+/* ── Card ────────────────────────────────────────────────── */
+.cu-card {
+  background: #fff;
+  border: 1.5px solid #e5e7eb;
+  border-radius: 10px;
+  overflow: hidden;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+.cu-card--done    { border-color: #6ee7b7; }
+.cu-card--error   { border-color: #fca5a5; }
+.cu-card--uploading { border-color: #93c5fd; }
+
+.cu-card__thumb {
+  position: relative;
+  height: 160px;
+  background: #f3f4f6;
+  overflow: hidden;
+}
+.cu-card__thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+.cu-card__status-badge {
+  position: absolute;
+  top: 0.5rem;
+  left: 0.5rem;
+  font-size: 0.68rem;
+  font-weight: 700;
+  padding: 0.15rem 0.5rem;
+  border-radius: 4px;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+.cu-card__status-badge--pending   { background: #fef3c7; color: #92400e; }
+.cu-card__status-badge--uploading { background: #dbeafe; color: #1e40af; }
+.cu-card__status-badge--done      { background: #d1fae5; color: #065f46; }
+.cu-card__status-badge--error     { background: #fee2e2; color: #991b1b; }
+
+.cu-card__remove {
+  position: absolute;
+  top: 0.5rem;
+  right: 0.5rem;
+  background: rgba(255,255,255,0.9);
+  border: none;
+  border-radius: 5px;
+  padding: 0.3rem;
+  cursor: pointer;
+  color: #ef4444;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity 0.15s;
+}
+.cu-card:hover .cu-card__remove { opacity: 1; }
+
+.cu-card__body {
+  padding: 0.85rem 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+.cu-card__name {
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: #111;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin: 0;
+}
+.cu-card__size {
+  font-size: 0.72rem;
+  color: #9ca3af;
+  margin: 0 0 0.3rem;
+}
+
+/* ── URL row ─────────────────────────────────────────────── */
+.cu-card__url-row {
+  display: flex;
+  gap: 0.4rem;
+  align-items: center;
+}
+.cu-card__url-input {
+  flex: 1;
+  min-width: 0;
+  padding: 0.4rem 0.6rem;
+  border: 1.5px solid #d1d5db;
+  border-radius: 5px;
+  font-size: 0.72rem;
+  color: #374151;
+  background: #f9fafb;
+  cursor: text;
+}
+.cu-card__url-input:focus { outline: none; border-color: #6366f1; }
+
+.cu-copy-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  padding: 0.38rem 0.65rem;
+  border-radius: 5px;
+  border: 1.5px solid #d1d5db;
+  background: #fff;
+  cursor: pointer;
+  font-size: 0.72rem;
+  font-weight: 600;
+  white-space: nowrap;
+  transition: background 0.12s, border-color 0.12s;
+  flex-shrink: 0;
+}
+.cu-copy-btn:hover { background: #f3f4f6; }
+.cu-copy-btn--copied {
+  background: #d1fae5;
+  border-color: #6ee7b7;
+  color: #065f46;
+}
+
+.cu-card__error {
+  font-size: 0.75rem;
+  color: #ef4444;
+  margin: 0;
+}
+
+/* ── Empty state ─────────────────────────────────────────── */
+.cu-empty {
+  text-align: center;
+  color: #9ca3af;
+  padding: 2rem 0;
+  font-size: 0.9rem;
+}
+
+/* ── Responsive ──────────────────────────────────────────── */
+@media (max-width: 640px) {
+  .cu-page { padding: 1.25rem; }
+  .cu-dropzone { padding: 2rem 1rem; }
+  .cu-grid { grid-template-columns: 1fr; }
+  .cu-header { flex-direction: column; }
+}

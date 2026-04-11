@@ -1,0 +1,62 @@
+# Dependencies
+yolo/node_modules/
+admin-frontend/node_modules/
+backend/venv/
+backend/yolo-venv/
+node_modules/
+*.pyc
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Environment files
+.env
+.env.local
+.env.*.local
+yolo/.env
+backend/.env
+admin-frontend/.env
+
+# Build outputs
+yolo/dist/
+admin-frontend/dist/
+backend/uploads/*
+!backend/uploads/.gitkeep
+*.log
+*.pid
+*.seed
+*.pid.lock
+
+# IDEs
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# Testing
+coverage/
+htmlcov/
+.coverage
+.pytest_cache/
+backend/.pytest_cache/
+backend/pytest-cache-files-*/
+*.cover
+.hypothesis/
+
+# Production
+*.sqlite
+*.db
+
+# OS
+Thumbs.db
+desktop.ini
+
+# Temporary files
+*.tmp
+*.temp
+.cache/
+
+# Docker
+docker-compose.override.yml

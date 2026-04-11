@@ -1,0 +1,124 @@
+.brand-story {
+  background: var(--color-cream);
+}
+
+.brand-story__inner {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 5rem;
+  align-items: center;
+}
+
+/* Visual */
+.brand-story__visual {
+  position: relative;
+}
+
+.brand-story__img-main {
+  border-radius: var(--radius-xl);
+  overflow: hidden;
+  aspect-ratio: 4/5;
+  box-shadow: var(--shadow-lg);
+}
+
+.brand-story__img-main img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform var(--transition-slow);
+}
+
+.brand-story__img-main:hover img {
+  transform: scale(1.04);
+}
+
+.brand-story__img-accent {
+  position: absolute;
+  bottom: -8%;
+  right: -12%;
+  width: 45%;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  box-shadow: var(--shadow-md);
+  border: 4px solid white;
+  aspect-ratio: 1;
+}
+
+.brand-story__img-accent img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.brand-story__stat {
+  position: absolute;
+  top: 8%;
+  left: -8%;
+  background: white;
+  border-radius: var(--radius-lg);
+  padding: 1.25rem 1.5rem;
+  box-shadow: var(--shadow-md);
+  text-align: center;
+}
+
+.brand-story__stat-num {
+  font-family: var(--font-display);
+  font-size: 2.25rem;
+  font-weight: 400;
+  color: var(--color-deep-rose);
+  line-height: 1;
+}
+
+.brand-story__stat-label {
+  font-size: 0.75rem;
+  color: var(--color-text-light);
+  margin-top: 0.35rem;
+  letter-spacing: 0.05em;
+}
+
+/* Content */
+.brand-story__pillars {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-top: 2rem;
+}
+
+.brand-story__pillar {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: var(--color-blush);
+  padding: 0.5rem 1rem;
+  border-radius: var(--radius-full);
+  font-size: 0.8125rem;
+  font-weight: 500;
+  color: var(--color-text-dark);
+}
+
+.brand-story__pillar-icon {
+  color: var(--color-dusty-rose);
+  font-size: 0.65rem;
+}
+
+@media (max-width: 900px) {
+  .brand-story__inner {
+    grid-template-columns: 1fr;
+    gap: 3rem;
+  }
+
+  .brand-story__visual {
+    max-width: 480px;
+    margin: 0 auto;
+  }
+}
+
+@media (max-width: 480px) {
+  .brand-story__img-accent {
+    display: none;
+  }
+
+  .brand-story__stat {
+    left: 0;
+  }
+}

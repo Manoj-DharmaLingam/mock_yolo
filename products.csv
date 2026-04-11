@@ -1,0 +1,21 @@
+name,description,price,discount_price,category,sub_category,stock,available,badge,material,fit,is_best_seller,is_bogo,image_url
+Classic White T-Shirt,Soft cotton everyday t-shirt,499,399,Clothing,T-Shirts,120,true,New,Cotton,Regular,true,false,https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=800&q=80
+Black Slim Fit Jeans,Stretchable slim fit denim jeans,1499,1199,Clothing,Jeans,80,true,Trending,Denim,Slim,true,false,https://images.unsplash.com/photo-1542272604-787c3835535d?w=800&q=80
+Men's Casual Shirt,Lightweight casual button shirt,999,799,Clothing,Shirts,60,true,,Cotton,Regular,false,false,https://images.unsplash.com/photo-1596755094514-f87e34085b2c?w=800&q=80
+Women's Summer Dress,Breezy floral summer dress,1299,999,Clothing,Dresses,70,true,Hot,Polyester,Regular,true,false,https://images.unsplash.com/photo-1595777457583-95e059d581b8?w=800&q=80
+Running Shoes,Sports running shoes with cushioning,2999,2499,Footwear,Sports Shoes,40,true,Best Seller,Synthetic,Regular,true,false,https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=800&q=80
+Leather Wallet,Compact genuine leather wallet,799,599,Accessories,Wallets,150,true,,Leather,Regular,false,true,https://images.unsplash.com/photo-1627123424574-724758594e93?w=800&q=80
+Baseball Cap,Adjustable casual cap,399,299,Accessories,Caps,200,true,,Cotton,Regular,false,false,https://images.unsplash.com/photo-1588850561407-ed78c282e89b?w=800&q=80
+Women's Handbag,Stylish everyday handbag,1999,1599,Accessories,Bags,50,true,Trending,Faux Leather,Regular,true,false,https://images.unsplash.com/photo-1584917865442-de89df76afd3?w=800&q=80
+Sports Hoodie,Warm fleece sports hoodie,1599,1299,Clothing,Hoodies,90,true,,Fleece,Regular,false,false,https://images.unsplash.com/photo-1556821840-3a63f95609a7?w=800&q=80
+Graphic T-Shirt,Printed graphic cotton t-shirt,599,449,Clothing,T-Shirts,130,true,Hot,Cotton,Regular,true,true,https://images.unsplash.com/photo-1583743814966-8936f5b7be1a?w=800&q=80
+Men's Formal Shirt,Formal office wear shirt,1299,999,Clothing,Shirts,75,true,,Cotton,Slim,false,false,https://images.unsplash.com/photo-1602810318383-e386cc2a3ccf?w=800&q=80
+Women's Leggings,Stretchable yoga leggings,699,549,Clothing,Leggings,110,true,Best Seller,Spandex,Slim,true,false,https://images.unsplash.com/photo-1506629082955-511b1aa562c8?w=800&q=80
+Denim Jacket,Classic blue denim jacket,2499,1999,Clothing,Jackets,35,true,Trending,Denim,Regular,true,false,https://images.unsplash.com/photo-1576995853123-5a10305d93c0?w=800&q=80
+Flip Flops,Comfortable beach flip flops,299,199,Footwear,Slippers,160,true,,Rubber,Regular,false,true,https://images.unsplash.com/photo-1603487742131-4160ec999306?w=800&q=80
+Laptop Backpack,Durable backpack for laptops,1799,1399,Accessories,Bags,65,true,Hot,Polyester,Regular,true,false,https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=800&q=80
+Cotton Shorts,Breathable cotton shorts,799,599,Clothing,Shorts,85,true,,Cotton,Regular,false,false,https://images.unsplash.com/photo-1591195853828-11db59a44f6b?w=800&q=80
+Women's Sandals,Comfortable everyday sandals,1299,999,Footwear,Sandals,55,true,Trending,Synthetic,Regular,true,false,https://images.unsplash.com/photo-1543163521-1bf539c55dd2?w=800&q=80
+Sports Track Pants,Flexible track pants for workouts,1199,899,Clothing,Track Pants,95,true,,Polyester,Regular,false,false,https://images.unsplash.com/photo-1600091166971-7f9faad6c1e2?w=800&q=80
+Unisex Sunglasses,UV protection sunglasses,999,749,Accessories,Sunglasses,140,true,Best Seller,Plastic,Regular,true,false,https://images.unsplash.com/photo-1572635196237-14b3f281503f?w=800&q=80
+Winter Beanie,Warm knitted winter beanie,399,299,Accessories,Beanies,180,true,,Wool,Regular,false,true,https://images.unsplash.com/photo-1576871337632-b9aef4c17ab9?w=800&q=80

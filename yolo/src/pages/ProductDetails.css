@@ -1,0 +1,279 @@
+.yolo-pd { background: #fff; padding-bottom: 5rem; min-height: 70vh; }
+.yolo-pd-loading {
+  display: flex; align-items: center; justify-content: center; min-height: 60vh;
+}
+
+.yolo-pd__main {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4rem;
+  padding: 2.5rem 0 3rem;
+}
+
+/* Gallery */
+.yolo-pd__gallery { display: flex; gap: 0.875rem; }
+.yolo-pd__thumbs { display: flex; flex-direction: column; gap: 0.5rem; }
+.yolo-pd__thumb {
+  width: 64px; height: 80px;
+  border: 2px solid #e0e0e0;
+  overflow: hidden;
+  cursor: pointer; background: none; padding: 0;
+  transition: border-color 0.18s;
+}
+.yolo-pd__thumb.active, .yolo-pd__thumb:hover { border-color: #0a0a0a; }
+.yolo-pd__thumb img { width: 100%; height: 100%; object-fit: cover; }
+.yolo-pd__main-img {
+  flex: 1; aspect-ratio: 3/4; overflow: hidden;
+  background: #f5f5f5; position: relative;
+  max-height: 550px;
+}
+.yolo-pd__main-img img {
+  width: 100%; height: 100%; object-fit: cover;
+  transition: transform 0.5s;
+}
+.yolo-pd__main-img:hover img { transform: scale(1.04); }
+.yolo-pd__badge {
+  position: absolute; top: 12px; left: 12px;
+  background: #0a0a0a; color: #e8ff00;
+  font-size: 0.62rem; font-weight: 700;
+  letter-spacing: 0.1em; text-transform: uppercase;
+  padding: 0.2rem 0.65rem;
+}
+
+/* Info */
+.yolo-pd__info { display: flex; flex-direction: column; gap: 1.1rem; }
+.yolo-pd__category {
+  font-size: 0.65rem; font-weight: 700; letter-spacing: 0.18em;
+  text-transform: uppercase; color: #999;
+}
+.yolo-pd__name {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(2rem, 4vw, 3.5rem);
+  letter-spacing: 0.04em; color: #0a0a0a; line-height: 1;
+}
+.yolo-pd__meta { display: flex; align-items: center; gap: 0.5rem; }
+.yolo-pd__stars { display: flex; gap: 2px; }
+.yolo-pd__rating { font-size: 0.85rem; font-weight: 700; color: #0a0a0a; }
+.yolo-pd__reviews { font-size: 0.78rem; color: #999; }
+
+.yolo-pd__pricing { display: flex; align-items: center; gap: 0.75rem; flex-wrap: wrap; }
+.yolo-pd__price {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 2.2rem; letter-spacing: 0.04em; color: #0a0a0a; line-height: 1;
+}
+.yolo-pd__original { font-size: 1rem; text-decoration: line-through; color: #bbb; }
+.yolo-pd__discount {
+  background: #e8ff00; color: #0a0a0a;
+  font-size: 0.72rem; font-weight: 700; padding: 0.2rem 0.55rem;
+  letter-spacing: 0.06em;
+}
+
+.yolo-pd__option-group { display: flex; flex-direction: column; gap: 0.55rem; }
+.yolo-pd__option-label {
+  font-size: 0.68rem; font-weight: 700;
+  letter-spacing: 0.14em; text-transform: uppercase; color: #0a0a0a;
+}
+.yolo-pd__color-row { display: flex; gap: 0.5rem; flex-wrap: wrap; }
+.yolo-pd__color-btn {
+  width: 26px; height: 26px; border-radius: 50%;
+  border: 2px solid transparent; cursor: pointer;
+  outline: none; transition: border-color 0.15s;
+  box-shadow: inset 0 0 0 1.5px rgba(0,0,0,0.15);
+}
+.yolo-pd__color-btn.active { border-color: #e8ff00 !important; }
+
+.yolo-pd__size-row { display: flex; gap: 0.4rem; flex-wrap: wrap; }
+.yolo-pd__size-btn {
+  min-width: 42px; height: 38px;
+  border: 1.5px solid #e0e0e0;
+  background: #fff;
+  font-size: 0.78rem; font-weight: 600; cursor: pointer;
+  transition: all 0.15s; padding: 0 0.5rem;
+  font-family: 'Space Grotesk', sans-serif;
+}
+.yolo-pd__size-btn:hover { border-color: #0a0a0a; }
+.yolo-pd__size-btn.active { background: #0a0a0a; color: #e8ff00; border-color: #0a0a0a; }
+
+.yolo-pd__size-guide {
+  font-size: 0.72rem; color: #999; text-decoration: underline;
+  margin-top: 0.25rem; display: inline-block; width: fit-content;
+  transition: color 0.15s;
+}
+.yolo-pd__size-guide:hover { color: #0a0a0a; }
+
+.yolo-pd__material { font-size: 0.82rem; color: #666; }
+.yolo-pd__material span { color: #999; }
+.yolo-pd__material strong { color: #0a0a0a; }
+
+.yolo-pd__actions { display: flex; gap: 0.75rem; align-items: center; }
+.yolo-pd__qty {
+  display: flex; align-items: center;
+  border: 1.5px solid #e0e0e0; background: #fff;
+  flex-shrink: 0;
+}
+.yolo-pd__qty button {
+  width: 38px; height: 44px; font-size: 1.1rem;
+  color: #555; background: none; border: none; cursor: pointer;
+  transition: background 0.12s, color 0.12s;
+}
+.yolo-pd__qty button:hover { background: #f0f0f0; color: #0a0a0a; }
+.yolo-pd__qty span { min-width: 32px; text-align: center; font-weight: 700; font-size: 0.9rem; }
+
+.yolo-pd__add { flex: 1; }
+.yolo-pd__add.added { background: #0a0a0a !important; color: #e8ff00 !important; }
+
+.yolo-pd__tags { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+.yolo-pd__tag {
+  font-size: 0.65rem; font-weight: 600; letter-spacing: 0.1em;
+  text-transform: uppercase; padding: 0.2rem 0.65rem;
+  background: #f0f0f0; color: #555;
+}
+
+/* Tabs */
+.yolo-pd__tabs {
+  display: flex; border-bottom: 2px solid #0a0a0a; margin-bottom: 0;
+}
+.yolo-pd__tab {
+  padding: 0.875rem 1.5rem; font-size: 0.72rem; font-weight: 700;
+  letter-spacing: 0.12em; text-transform: uppercase;
+  color: #999; background: none; border: none;
+  border-bottom: 2px solid transparent; margin-bottom: -2px;
+  cursor: pointer; transition: color 0.18s, border-color 0.18s;
+  font-family: 'Space Grotesk', sans-serif;
+}
+.yolo-pd__tab:hover { color: #0a0a0a; }
+.yolo-pd__tab.active { color: #0a0a0a; border-bottom-color: #0a0a0a; }
+
+.yolo-pd__tab-content {
+  border: 1.5px solid #e0e0e0; border-top: none;
+  padding: 1.5rem; margin-bottom: 4rem;
+  font-size: 0.9375rem; color: #555; line-height: 1.8;
+}
+
+/* Related */
+.yolo-pd__related-title {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 2rem; letter-spacing: 0.06em; color: #0a0a0a;
+}
+.yolo-pd__related-grid {
+  display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.25rem;
+}
+
+@media (max-width: 900px) {
+  .yolo-pd__main { grid-template-columns: 1fr; gap: 2rem; }
+  .yolo-pd__related-grid { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 480px) {
+  .yolo-pd__gallery { flex-direction: column-reverse; }
+  .yolo-pd__thumbs { flex-direction: row; }
+  .yolo-pd__thumb { width: 56px; height: 56px; }
+}
+
+/* Size Guide Modal */
+.yolo-pd__sg-overlay {
+  position: fixed; inset: 0;
+  background: rgba(0,0,0,0.55);
+  z-index: 1000;
+  display: flex; align-items: center; justify-content: center;
+  padding: 1rem;
+}
+.yolo-pd__sg-modal {
+  background: #fff;
+  padding: 2.5rem;
+  max-width: 560px;
+  width: 100%;
+  position: relative;
+  max-height: 90vh;
+  overflow-y: auto;
+}
+.yolo-pd__sg-close {
+  position: absolute; top: 1rem; right: 1rem;
+  background: none; border: none; font-size: 1.1rem;
+  cursor: pointer; color: #555; line-height: 1;
+  transition: color 0.15s;
+}
+.yolo-pd__sg-close:hover { color: #0a0a0a; }
+.yolo-pd__sg-title {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1.75rem; letter-spacing: 0.06em; color: #0a0a0a;
+}
+.yolo-pd__sg-table {
+  width: 100%; border-collapse: collapse; font-size: 0.875rem;
+  margin-bottom: 1.25rem;
+}
+.yolo-pd__sg-table th,
+.yolo-pd__sg-table td {
+  padding: 0.65rem 1rem;
+  text-align: left;
+  border: 1px solid #e0e0e0;
+}
+.yolo-pd__sg-table thead th {
+  background: #0a0a0a; color: #fff;
+  font-size: 0.7rem; letter-spacing: 0.1em; text-transform: uppercase;
+}
+.yolo-pd__sg-table tbody tr:nth-child(even) { background: #f7f7f7; }
+.yolo-pd__sg-note {
+  font-size: 0.8rem; color: #888; line-height: 1.6;
+}
+
+/* ── Reviews ────────────────────────────────── */
+.yolo-pd__reviews { padding: 1.5rem 0; }
+
+.yolo-pd__review-login-prompt {
+  display: flex; align-items: center; gap: 0.5rem;
+  padding: 1rem; background: #f5f5f5; border-radius: 4px;
+  font-size: 0.9rem; color: #555; margin-bottom: 1.5rem;
+}
+
+.yolo-pd__review-form {
+  background: #f9f9f9; border: 1px solid #e0e0e0;
+  padding: 1.5rem; margin-bottom: 2rem; border-radius: 4px;
+  display: flex; flex-direction: column; gap: 1rem;
+}
+.yolo-pd__review-form-title {
+  font-size: 1rem; font-weight: 700; text-transform: uppercase;
+  letter-spacing: 0.08em; margin: 0;
+}
+.yolo-pd__star-selector {
+  display: flex; align-items: center; gap: 0.25rem;
+}
+.yolo-pd__star-label {
+  font-size: 0.8rem; color: #777; margin-left: 0.5rem;
+}
+.yolo-pd__review-textarea {
+  width: 100%; padding: 0.75rem 1rem;
+  border: 1px solid #e0e0e0; border-radius: 4px;
+  font-size: 0.9rem; font-family: inherit; resize: vertical;
+  outline: none; transition: border-color 0.18s;
+  box-sizing: border-box;
+}
+.yolo-pd__review-textarea:focus { border-color: #0a0a0a; }
+.yolo-pd__review-error {
+  color: #c0392b; font-size: 0.85rem; padding: 0.5rem;
+  background: #fdecea; border-radius: 4px;
+}
+.yolo-pd__review-success {
+  color: #27ae60; font-size: 0.85rem; padding: 0.5rem;
+  background: #eafaf1; border-radius: 4px;
+}
+
+.yolo-pd__review-list { display: flex; flex-direction: column; gap: 1.25rem; }
+.yolo-pd__review-empty { color: #888; font-size: 0.9rem; font-style: italic; }
+.yolo-pd__review-item {
+  border-bottom: 1px solid #f0f0f0; padding-bottom: 1.25rem;
+}
+.yolo-pd__review-item:last-child { border-bottom: none; }
+.yolo-pd__review-header {
+  display: flex; align-items: center; gap: 0.75rem;
+  margin-bottom: 0.5rem; flex-wrap: wrap;
+}
+.yolo-pd__review-stars { display: flex; gap: 1px; }
+.yolo-pd__review-author {
+  font-weight: 700; font-size: 0.875rem; color: #0a0a0a;
+}
+.yolo-pd__review-date {
+  font-size: 0.775rem; color: #aaa; margin-left: auto;
+}
+.yolo-pd__review-text {
+  font-size: 0.9rem; color: #444; line-height: 1.6; margin: 0;
+}

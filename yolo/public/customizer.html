@@ -1,0 +1,965 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>YOLO – 3D T-Shirt Customizer</title>
+
+  <!-- ① Fabric.js 5 — must be a regular script (not a module) -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/fabric.js/5.3.1/fabric.min.js"></script>
+
+  <!-- ② Three.js r160 import-map — must come before any type="module" -->
+  <script type="importmap">
+  {
+    "imports": {
+      "three":          "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js",
+      "three/addons/":  "https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"
+    }
+  }
+  </script>
+
+  <style>
+    /* ─── reset ─────────────────────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg:       #0e0e0e;
+      --surface:  #1a1a1a;
+      --border:   #2c2c2c;
+      --text:     #e8e8e8;
+      --muted:    #777;
+      --accent:   #e8ff00;
+      --danger:   #e53935;
+      --panel-w:  360px;
+      font-family: 'Segoe UI', system-ui, sans-serif;
+      color: var(--text);
+    }
+    html, body { height: 100%; overflow: hidden; background: var(--bg); }
+
+    /* ─── layout ─────────────────────────────────────────────────────── */
+    #app {
+      display: flex;
+      height: 100vh;
+    }
+
+    /* ── left: 3-D viewport ── */
+    #viewport {
+      flex: 1;
+      position: relative;
+      background: radial-gradient(ellipse 80% 70% at 50% 46%, #1c1c1c 0%, #080808 100%);
+      overflow: hidden;
+    }
+    #three-canvas {
+      display: block;
+      width: 100% !important;
+      height: 100% !important;
+    }
+
+    /* loading overlay */
+    #loading-overlay {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 1rem;
+      background: #080808;
+      transition: opacity 0.5s;
+    }
+    #loading-overlay.hidden { opacity: 0; pointer-events: none; }
+    #loading-spinner {
+      width: 44px; height: 44px;
+      border: 3px solid #333;
+      border-top-color: var(--accent);
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    #loading-text { font-size: 0.82rem; color: var(--muted); letter-spacing: 0.08em; }
+
+    /* ── right: controls panel ── */
+    #controls-panel {
+      width: var(--panel-w);
+      flex-shrink: 0;
+      display: flex;
+      flex-direction: column;
+      background: var(--surface);
+      border-left: 1px solid var(--border);
+      overflow-y: auto;
+    }
+    #controls-panel::-webkit-scrollbar { width: 4px; }
+    #controls-panel::-webkit-scrollbar-thumb { background: #333; border-radius: 2px; }
+
+    /* ─── panel header ─────────────────────────────────────────────── */
+    .panel-header {
+      padding: 1rem 1.25rem 0.85rem;
+      border-bottom: 1px solid var(--border);
+      background: #0f0f0f;
+      flex-shrink: 0;
+    }
+    .panel-title {
+      font-size: 1.05rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--accent);
+    }
+    .panel-subtitle {
+      font-size: 0.68rem;
+      color: var(--muted);
+      margin-top: 2px;
+      letter-spacing: 0.05em;
+    }
+
+    /* ─── control section ──────────────────────────────────────────── */
+    .ctrl-section {
+      padding: 1rem 1.25rem;
+      border-bottom: 1px solid var(--border);
+    }
+    .ctrl-label {
+      display: block;
+      font-size: 0.65rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 0.7rem;
+    }
+    .ctrl-hint {
+      font-weight: 400;
+      text-transform: none;
+      letter-spacing: 0.03em;
+      font-size: 0.62rem;
+    }
+
+    /* ─── shirt colour ─────────────────────────────────────────────── */
+    .swatch-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-bottom: 0.6rem;
+    }
+    .swatch {
+      width: 26px; height: 26px;
+      border-radius: 50%;
+      cursor: pointer;
+      border: 2px solid transparent;
+      transition: border-color 0.15s, transform 0.12s;
+      flex-shrink: 0;
+    }
+    .swatch:hover { transform: scale(1.15); }
+    .swatch.active { border-color: var(--accent); }
+
+    .color-row {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      margin-top: 0.5rem;
+    }
+    .color-row label { font-size: 0.72rem; color: var(--muted); }
+    input[type="color"] {
+      width: 36px; height: 28px;
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 1px;
+      background: var(--surface);
+      cursor: pointer;
+    }
+    #shirt-color-name {
+      font-size: 0.75rem;
+      font-weight: 600;
+    }
+
+    /* ─── file upload ──────────────────────────────────────────────── */
+    .btn-upload {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      width: 100%;
+      padding: 0.65rem;
+      background: #1e1e1e;
+      border: 2px dashed var(--border);
+      border-radius: 6px;
+      color: var(--muted);
+      font-size: 0.8rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: border-color 0.15s, color 0.15s, background 0.15s;
+      letter-spacing: 0.04em;
+    }
+    .btn-upload:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+      background: #1e1e00;
+    }
+
+    /* ─── text controls ────────────────────────────────────────────── */
+    .text-inp {
+      width: 100%;
+      background: #151515;
+      border: 1px solid var(--border);
+      border-radius: 5px;
+      color: var(--text);
+      font-size: 0.85rem;
+      padding: 0.5rem 0.65rem;
+      margin-bottom: 0.6rem;
+      outline: none;
+      transition: border-color 0.15s;
+    }
+    .text-inp:focus { border-color: var(--accent); }
+
+    .ctrl-row {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin-bottom: 0.45rem;
+    }
+    .ctrl-row label { font-size: 0.7rem; color: var(--muted); min-width: 36px; }
+    .ctrl-row .val { font-size: 0.7rem; color: var(--muted); min-width: 30px; text-align: right; }
+
+    input[type="range"] {
+      flex: 1;
+      accent-color: var(--accent);
+      height: 3px;
+      cursor: pointer;
+    }
+
+    /* font selector */
+    .font-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.35rem;
+      margin-bottom: 0.55rem;
+    }
+    .font-chip {
+      padding: 0.3rem 0.6rem;
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      background: #1e1e1e;
+      color: var(--muted);
+      font-size: 0.72rem;
+      cursor: pointer;
+      transition: all 0.12s;
+    }
+    .font-chip.active { border-color: var(--accent); color: var(--accent); background: #1e1e00; }
+    .font-chip:hover { border-color: #555; color: var(--text); }
+
+    /* style toggles */
+    .style-row { display: flex; gap: 0.35rem; margin-bottom: 0.55rem; }
+    .style-btn {
+      padding: 0.3rem 0.65rem;
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      background: #1e1e1e;
+      color: var(--muted);
+      font-size: 0.8rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.12s;
+    }
+    .style-btn.active { border-color: var(--accent); color: var(--accent); background: #1e1e00; }
+
+    /* ─── generic buttons ──────────────────────────────────────────── */
+    .btn {
+      padding: 0.5rem 0.9rem;
+      border-radius: 5px;
+      font-size: 0.77rem;
+      font-weight: 700;
+      cursor: pointer;
+      border: none;
+      letter-spacing: 0.06em;
+      transition: opacity 0.15s, transform 0.1s;
+    }
+    .btn:hover { opacity: 0.85; }
+    .btn:active { transform: scale(0.97); }
+    .btn--accent {
+      width: 100%;
+      background: var(--accent);
+      color: #000;
+      margin-top: 0.35rem;
+    }
+    .btn--sm {
+      background: #242424;
+      color: var(--muted);
+      border: 1px solid var(--border);
+      font-size: 0.7rem;
+      padding: 0.35rem 0.65rem;
+    }
+    .btn--sm:hover { color: var(--text); border-color: #555; background: #2e2e2e; }
+    .btn--danger { border-color: var(--danger); color: var(--danger); }
+    .btn--danger:hover { background: rgba(229,57,53,0.12); }
+
+    /* ─── Fabric canvas display area ──────────────────────────────── */
+    #fabric-scale-wrap {
+      /* displays the 1024×1024 Fabric canvas at CANVAS_DISPLAY px */
+      width: 308px;
+      height: 308px;
+      overflow: hidden;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+      background: #fff;
+      position: relative;
+    }
+    /* Fabric injects a .canvas-container div — we scale it down */
+    #fabric-scale-wrap .canvas-container {
+      transform-origin: top left;
+      /* transform is set by JS: scale(308/1024) */
+    }
+
+    .layer-row {
+      display: flex;
+      gap: 0.4rem;
+      margin-top: 0.55rem;
+    }
+
+    /* ─── bottom: 3D object info ────────────────────────────────────── */
+    #object-info {
+      padding: 0.6rem 1.25rem;
+      font-size: 0.68rem;
+      color: var(--muted);
+      letter-spacing: 0.04em;
+      border-top: 1px solid var(--border);
+      background: #0f0f0f;
+      min-height: 32px;
+      flex-shrink: 0;
+    }
+  </style>
+</head>
+<body>
+<div id="app">
+
+  <!-- ══ Left: 3-D Viewport ══════════════════════════════════════════ -->
+  <div id="viewport">
+    <canvas id="three-canvas"></canvas>
+    <div id="loading-overlay">
+      <div id="loading-spinner"></div>
+      <p id="loading-text">Loading model…</p>
+    </div>
+  </div>
+
+  <!-- ══ Right: Controls Panel ═══════════════════════════════════════ -->
+  <div id="controls-panel">
+
+    <div class="panel-header">
+      <div class="panel-title">Design Studio</div>
+      <div class="panel-subtitle">3D T-Shirt Customizer · YOLO</div>
+    </div>
+
+    <!-- ── Shirt Colour ── -->
+    <section class="ctrl-section">
+      <label class="ctrl-label">Shirt Colour</label>
+      <div class="swatch-grid" id="swatch-grid"></div>
+      <div class="color-row">
+        <label>Custom:</label>
+        <input type="color" id="shirt-color" value="#FFFFFF" />
+        <span id="shirt-color-name">White</span>
+      </div>
+    </section>
+
+    <!-- ── Upload Image ── -->
+    <section class="ctrl-section">
+      <label class="ctrl-label">Upload Image</label>
+      <button class="btn-upload" id="upload-trigger">
+        <svg width="16" height="16" fill="none" stroke="currentColor" strokeWidth="1.8" viewBox="0 0 24 24">
+          <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/>
+          <polyline points="17 8 12 3 7 8"/>
+          <line x1="12" y1="3" x2="12" y2="15"/>
+        </svg>
+        Choose Image File
+      </button>
+      <input type="file" id="upload-img" accept="image/*" hidden />
+    </section>
+
+    <!-- ── Add Text ── -->
+    <section class="ctrl-section">
+      <label class="ctrl-label">Add Text</label>
+
+      <input class="text-inp" type="text" id="text-content"
+        placeholder="Your text here…" maxlength="40" />
+
+      <!-- Font family chips -->
+      <div class="font-row" id="font-chips">
+        <button class="font-chip active" data-font="Arial, sans-serif" style="font-family:Arial">Arial</button>
+        <button class="font-chip" data-font="'Impact', sans-serif" style="font-family:Impact">Impact</button>
+        <button class="font-chip" data-font="Georgia, serif" style="font-family:Georgia">Georgia</button>
+        <button class="font-chip" data-font="'Courier New', monospace" style="font-family:'Courier New'">Mono</button>
+        <button class="font-chip" data-font="'Trebuchet MS', sans-serif" style="font-family:'Trebuchet MS'">Trebuchet</button>
+      </div>
+
+      <!-- Bold / Italic -->
+      <div class="style-row">
+        <button class="style-btn active" id="bold-btn" title="Bold">B</button>
+        <button class="style-btn" id="italic-btn" title="Italic" style="font-style:italic">I</button>
+        <button class="style-btn" id="underline-btn" title="Underline" style="text-decoration:underline">U</button>
+      </div>
+
+      <!-- Size -->
+      <div class="ctrl-row">
+        <label>Size</label>
+        <input type="range" id="text-size" min="20" max="220" value="80" step="2" />
+        <span class="val" id="text-size-val">80</span>
+      </div>
+
+      <!-- Colour -->
+      <div class="ctrl-row">
+        <label>Colour</label>
+        <input type="color" id="text-color" value="#000000" />
+        <label style="margin-left:.2rem">Stroke</label>
+        <input type="color" id="stroke-color" value="#00000000" />
+      </div>
+
+      <button class="btn btn--accent" id="add-text-btn">+ Add Text to Design</button>
+    </section>
+
+    <!-- ── Fabric 2D Design Canvas ── -->
+    <section class="ctrl-section">
+      <label class="ctrl-label">
+        Design Canvas
+        <span class="ctrl-hint">(click elements to select · drag to move)</span>
+      </label>
+      <div id="fabric-scale-wrap">
+        <canvas id="fabric-canvas"></canvas>
+      </div>
+      <div class="layer-row">
+        <button class="btn btn--sm" id="bring-forward">↑ Forward</button>
+        <button class="btn btn--sm" id="send-back">↓ Back</button>
+        <button class="btn btn--sm" id="duplicate-obj">⧉ Dup</button>
+        <button class="btn btn--sm btn--danger" id="delete-obj">✕ Del</button>
+        <button class="btn btn--sm" id="clear-all" style="margin-left:auto">🗑 Clear</button>
+      </div>
+    </section>
+
+    <div id="object-info">Select an object on the canvas to see its properties.</div>
+
+  </div><!-- /controls-panel -->
+</div><!-- /app -->
+
+<!-- ══════════════════════════════════════════════════════════════════
+     MAIN SCRIPT  (ES Module — runs after Fabric.js is loaded)
+══════════════════════════════════════════════════════════════════ -->
+<script type="module">
+import * as THREE           from 'three';
+import { GLTFLoader }       from 'three/addons/loaders/GLTFLoader.js';
+import { OrbitControls }    from 'three/addons/controls/OrbitControls.js';
+
+/* ════════════════════════════════════════════════════════════════════
+   CONSTANTS
+════════════════════════════════════════════════════════════════════ */
+const CANVAS_RES     = 1024;   // Fabric canvas internal resolution (px)
+const CANVAS_DISPLAY = 308;    // CSS display size in the panel (px)
+const SCALE_FACTOR   = CANVAS_DISPLAY / CANVAS_RES; // ≈ 0.301
+
+const GLB_PATH = './oversized_t-shirt.glb';
+
+const SHIRT_COLORS = [
+  { name: 'White',        hex: '#FFFFFF' }, { name: 'Cream',         hex: '#EDE0CC' },
+  { name: 'Light Grey',   hex: '#CACACA' }, { name: 'Charcoal',      hex: '#555555' },
+  { name: 'Jet Black',    hex: '#0A0A0A' }, { name: 'Navy',          hex: '#1A237E' },
+  { name: 'Royal Blue',   hex: '#1976D2' }, { name: 'Sky Blue',      hex: '#42A5F5' },
+  { name: 'Blush Pink',   hex: '#F8BBD0' }, { name: 'Rose',          hex: '#E91E63' },
+  { name: 'Coral Red',    hex: '#E53935' }, { name: 'Crimson',       hex: '#B71C1C' },
+  { name: 'Forest Green', hex: '#2E7D32' }, { name: 'Mint Green',    hex: '#80CBC4' },
+  { name: 'Mustard',      hex: '#F9A825' }, { name: 'Purple',        hex: '#6A1B9A' },
+];
+
+/* ════════════════════════════════════════════════════════════════════
+   ① FABRIC.JS — 2-D interactive design canvas
+   ─────────────────────────────────────────────────────────────────
+   The `fabric.Canvas` at CANVAS_RES × CANVAS_RES is our high-res
+   texture source.  We CSS-scale its wrapper element to CANVAS_DISPLAY
+   so it fits the panel.  Fabric reads getBoundingClientRect() internally
+   and auto-corrects pointer coordinates for the CSS scale — no manual
+   math needed.
+════════════════════════════════════════════════════════════════════ */
+const fabricCanvas = new fabric.Canvas('fabric-canvas', {
+  width:  CANVAS_RES,
+  height: CANVAS_RES,
+  backgroundColor: '#ffffff',
+  preserveObjectStacking: true,
+  selection: true,
+});
+
+// Scale the injected .canvas-container div down to CANVAS_DISPLAY
+fabricCanvas.wrapperEl.style.transformOrigin = 'top left';
+fabricCanvas.wrapperEl.style.transform = `scale(${SCALE_FACTOR})`;
+
+/* ════════════════════════════════════════════════════════════════════
+   ② THREE.JS SETUP — renderer, scene, camera, lights, controls
+════════════════════════════════════════════════════════════════════ */
+const viewport  = document.getElementById('viewport');
+const threeCanvas = document.getElementById('three-canvas');
+
+const renderer = new THREE.WebGLRenderer({ canvas: threeCanvas, antialias: true });
+renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+renderer.setSize(viewport.clientWidth, viewport.clientHeight);
+renderer.shadowMap.enabled    = true;
+renderer.shadowMap.type       = THREE.PCFSoftShadowMap;
+renderer.toneMapping          = THREE.ACESFilmicToneMapping;
+renderer.toneMappingExposure  = 1.15;
+
+const scene = new THREE.Scene();
+scene.background = new THREE.Color(0x0e0e0e);
+
+const camera = new THREE.PerspectiveCamera(
+  38, viewport.clientWidth / viewport.clientHeight, 0.01, 100
+);
+camera.position.set(0, 0, 2.4);
+
+// Lights
+scene.add(new THREE.AmbientLight(0xffffff, 0.65));
+
+const sun = new THREE.DirectionalLight(0xffffff, 1.2);
+sun.position.set(3, 5, 4);
+sun.castShadow = true;
+scene.add(sun);
+
+const fill = new THREE.DirectionalLight(0xffffff, 0.4);
+fill.position.set(-4, 2, -3);
+scene.add(fill);
+
+// OrbitControls — rotation only (no zoom, no pan)
+const orbitControls = new OrbitControls(camera, renderer.domElement);
+orbitControls.enableDamping  = true;
+orbitControls.dampingFactor  = 0.10;
+orbitControls.enablePan      = false;
+orbitControls.enableZoom     = false;
+orbitControls.rotateSpeed    = 0.70;
+orbitControls.minPolarAngle  = Math.PI * 0.22;
+orbitControls.maxPolarAngle  = Math.PI * 0.78;
+
+/* ════════════════════════════════════════════════════════════════════
+   ③ TEXTURE PIPELINE — Fabric canvas  →  Three.js CanvasTexture
+   ─────────────────────────────────────────────────────────────────
+   `fabricCanvas.getElement()` returns the LOWER canvas element which
+   contains the final composited pixels Fabric renders.
+   We wrap it in a THREE.CanvasTexture; every time Fabric re-renders
+   we set needsUpdate = true in the animation loop.
+════════════════════════════════════════════════════════════════════ */
+const fabricTexture            = new THREE.CanvasTexture(fabricCanvas.getElement());
+fabricTexture.colorSpace       = THREE.SRGBColorSpace;
+fabricTexture.anisotropy       = renderer.capabilities.getMaxAnisotropy();
+fabricTexture.generateMipmaps  = true;
+
+// Flag set to true by Fabric's after:render event → checked each frame
+let textureNeedsUpdate = false;
+fabricCanvas.on('after:render', () => { textureNeedsUpdate = true; });
+
+/* ════════════════════════════════════════════════════════════════════
+   ④ GLTF LOADER — traverse scene, find shirt mesh, apply texture
+   ─────────────────────────────────────────────────────────────────
+   Strategy:
+   • Load the .glb
+   • Centre and auto-scale the model
+   • Traverse every child looking for Mesh nodes
+   • Replace each mesh's material with a MeshStandardMaterial that
+     uses the Fabric CanvasTexture as its diffuse (map) texture
+   • Collect mesh references in `shirtMeshes[]` for colour changes
+════════════════════════════════════════════════════════════════════ */
+const shirtMeshes = [];   // refs to all shirt mesh objects
+let   currentShirtColor = '#FFFFFF';
+
+const loader = new GLTFLoader();
+
+loader.load(
+  GLB_PATH,
+
+  /* onLoad */
+  (gltf) => {
+    // ── Centre model ──────────────────────────────────────────────
+    const box    = new THREE.Box3().setFromObject(gltf.scene);
+    const center = box.getCenter(new THREE.Vector3());
+    const size   = box.getSize(new THREE.Vector3());
+    gltf.scene.position.sub(center);   // move centroid to world origin
+
+    // ── Auto-scale to fit ≈ 1.5 units tall ───────────────────────
+    const maxDim = Math.max(size.x, size.y, size.z);
+    if (maxDim > 1.6) gltf.scene.scale.setScalar(1.6 / maxDim);
+
+    // ── Traverse: find meshes and apply Fabric texture ────────────
+    gltf.scene.traverse((child) => {
+      if (!child.isMesh) return;
+
+      shirtMeshes.push(child);
+      child.castShadow    = true;
+      child.receiveShadow = true;
+
+      // Preserve roughness/metalness from the original material
+      const orig = Array.isArray(child.material)
+        ? child.material[0] : child.material;
+
+      // Build a new MeshStandardMaterial with the Fabric canvas as map
+      child.material = new THREE.MeshStandardMaterial({
+        map:              fabricTexture,
+        color:            new THREE.Color(currentShirtColor),
+        roughness:        orig?.roughness  ?? 0.85,
+        metalness:        orig?.metalness  ?? 0.00,
+        envMapIntensity:  0.5,
+      });
+
+      // Free the old material's GPU resources
+      if (orig?.dispose) orig.dispose();
+    });
+
+    scene.add(gltf.scene);
+
+    // Force an immediate texture push
+    fabricTexture.needsUpdate = true;
+
+    // Hide the loading overlay
+    document.getElementById('loading-overlay').classList.add('hidden');
+  },
+
+  /* onProgress */
+  ({ loaded, total }) => {
+    const pct = total ? Math.round(loaded / total * 100) : '—';
+    document.getElementById('loading-text').textContent = `Loading model… ${pct}%`;
+  },
+
+  /* onError */
+  (err) => {
+    console.error('GLTFLoader error:', err);
+    document.getElementById('loading-text').textContent =
+      'Error loading model. Check the console and make sure the .glb path is correct.';
+  }
+);
+
+/* ════════════════════════════════════════════════════════════════════
+   ⑤ SHIRT COLOUR — colour picker + preset swatches
+   ─────────────────────────────────────────────────────────────────
+   We change the THREE material colour.  The Fabric canvas background
+   also updates so the 2-D preview matches the 3-D shirt.
+════════════════════════════════════════════════════════════════════ */
+function applyShirtColor(hex, name) {
+  currentShirtColor = hex;
+  document.getElementById('shirt-color').value = hex;
+  document.getElementById('shirt-color-name').textContent = name || hex;
+
+  // Update Three.js material colour on every mesh
+  const col = new THREE.Color(hex);
+  shirtMeshes.forEach(m => { m.material.color.set(col); });
+
+  // Update Fabric canvas background to match
+  fabricCanvas.setBackgroundColor(hex, () => fabricCanvas.renderAll());
+
+  // Highlight active swatch
+  document.querySelectorAll('.swatch').forEach(s => {
+    s.classList.toggle('active', s.dataset.hex === hex);
+  });
+}
+
+// Build preset swatches
+const swatchGrid = document.getElementById('swatch-grid');
+SHIRT_COLORS.forEach(({ name, hex }) => {
+  const btn = document.createElement('button');
+  btn.className = 'swatch' + (hex === currentShirtColor ? ' active' : '');
+  btn.title     = name;
+  btn.dataset.hex = hex;
+  btn.style.background = hex;
+  btn.style.border     = hex === '#FFFFFF' ? '2px solid #ccc' : '2px solid transparent';
+  btn.addEventListener('click', () => applyShirtColor(hex, name));
+  swatchGrid.appendChild(btn);
+});
+
+// Custom colour input
+document.getElementById('shirt-color').addEventListener('input', (e) => {
+  applyShirtColor(e.target.value, e.target.value);
+});
+
+/* ════════════════════════════════════════════════════════════════════
+   ⑥ IMAGE UPLOAD — add image to Fabric canvas with full controls
+════════════════════════════════════════════════════════════════════ */
+document.getElementById('upload-trigger').addEventListener('click', () => {
+  document.getElementById('upload-img').click();
+});
+
+document.getElementById('upload-img').addEventListener('change', (e) => {
+  const file = e.target.files[0];
+  if (!file) return;
+
+  const reader = new FileReader();
+  reader.onload = (ev) => {
+    fabric.Image.fromURL(ev.target.result, (img) => {
+      // Fit within 65% of the canvas
+      const maxPx = CANVAS_RES * 0.65;
+      const maxDim = Math.max(img.width, img.height);
+      if (maxDim > maxPx) img.scale(maxPx / maxDim);
+
+      img.set({
+        left:    CANVAS_RES * 0.5,
+        top:     CANVAS_RES * 0.4,
+        originX: 'center',
+        originY: 'center',
+        /* Fabric bounding box style */
+        cornerStyle:         'circle',
+        cornerColor:         '#e8ff00',
+        borderColor:         '#e8ff00',
+        cornerStrokeColor:   '#000000',
+        transparentCorners:  false,
+        cornerSize:          14,
+        padding:             8,
+      });
+
+      fabricCanvas.add(img);
+      fabricCanvas.setActiveObject(img);
+      fabricCanvas.renderAll();
+    });
+  };
+  reader.readAsDataURL(file);
+  e.target.value = '';   // allow re-uploading the same file
+});
+
+/* ════════════════════════════════════════════════════════════════════
+   ⑦ TEXT — add / edit IText objects on the Fabric canvas
+   ─────────────────────────────────────────────────────────────────
+   `fabric.IText` is fully editable: double-click to enter edit mode
+   directly on the canvas, OR type in the HTML <input> which drives
+   the active Fabric text object in real-time.
+════════════════════════════════════════════════════════════════════ */
+let selectedFont   = 'Arial, sans-serif';
+let isBold         = true;
+let isItalic       = false;
+let isUnderline    = false;
+
+// Font chip selector
+document.querySelectorAll('#font-chips .font-chip').forEach(chip => {
+  chip.addEventListener('click', () => {
+    document.querySelectorAll('#font-chips .font-chip').forEach(c => c.classList.remove('active'));
+    chip.classList.add('active');
+    selectedFont = chip.dataset.font;
+
+    const obj = fabricCanvas.getActiveObject();
+    if (obj?.type === 'i-text') {
+      obj.set('fontFamily', selectedFont);
+      fabricCanvas.renderAll();
+    }
+  });
+});
+
+// Bold / Italic / Underline toggles
+document.getElementById('bold-btn').addEventListener('click', () => {
+  isBold = !isBold;
+  document.getElementById('bold-btn').classList.toggle('active', isBold);
+  const obj = fabricCanvas.getActiveObject();
+  if (obj?.type === 'i-text') {
+    obj.set('fontWeight', isBold ? 'bold' : 'normal');
+    fabricCanvas.renderAll();
+  }
+});
+document.getElementById('italic-btn').addEventListener('click', () => {
+  isItalic = !isItalic;
+  document.getElementById('italic-btn').classList.toggle('active', isItalic);
+  const obj = fabricCanvas.getActiveObject();
+  if (obj?.type === 'i-text') {
+    obj.set('fontStyle', isItalic ? 'italic' : 'normal');
+    fabricCanvas.renderAll();
+  }
+});
+document.getElementById('underline-btn').addEventListener('click', () => {
+  isUnderline = !isUnderline;
+  document.getElementById('underline-btn').classList.toggle('active', isUnderline);
+  const obj = fabricCanvas.getActiveObject();
+  if (obj?.type === 'i-text') {
+    obj.set('underline', isUnderline);
+    fabricCanvas.renderAll();
+  }
+});
+
+// Add text button
+document.getElementById('add-text-btn').addEventListener('click', () => {
+  const content   = document.getElementById('text-content').value || 'YOUR TEXT';
+  const fontSize  = parseInt(document.getElementById('text-size').value, 10) || 80;
+  const fill      = document.getElementById('text-color').value;
+  const stroke    = document.getElementById('stroke-color').value;
+  const hasStroke = stroke !== '#00000000' && stroke !== '#000000';
+
+  const textObj = new fabric.IText(content, {
+    left:                CANVAS_RES * 0.5,
+    top:                 CANVAS_RES * 0.38,
+    originX:             'center',
+    originY:             'center',
+    fontSize,
+    fill,
+    stroke:              hasStroke ? stroke : null,
+    strokeWidth:         hasStroke ? Math.max(1, fontSize * 0.03) : 0,
+    fontFamily:          selectedFont,
+    fontWeight:          isBold    ? 'bold'   : 'normal',
+    fontStyle:           isItalic  ? 'italic' : 'normal',
+    underline:           isUnderline,
+    textAlign:           'center',
+    editable:            true,
+    /* bounding box style */
+    cornerStyle:         'circle',
+    cornerColor:         '#e8ff00',
+    borderColor:         '#e8ff00',
+    cornerStrokeColor:   '#000000',
+    transparentCorners:  false,
+    cornerSize:          14,
+    padding:             8,
+  });
+
+  fabricCanvas.add(textObj);
+  fabricCanvas.setActiveObject(textObj);
+  fabricCanvas.renderAll();
+});
+
+// HTML text input → active Fabric IText (real-time sync)
+document.getElementById('text-content').addEventListener('input', (e) => {
+  const obj = fabricCanvas.getActiveObject();
+  if (obj?.type === 'i-text') {
+    obj.set('text', e.target.value || ' ');
+    fabricCanvas.renderAll();
+  }
+});
+
+// Size slider
+document.getElementById('text-size').addEventListener('input', (e) => {
+  const sz = parseInt(e.target.value, 10);
+  document.getElementById('text-size-val').textContent = sz;
+  const obj = fabricCanvas.getActiveObject();
+  if (obj?.type === 'i-text') {
+    obj.set('fontSize', sz);
+    fabricCanvas.renderAll();
+  }
+});
+
+// Text colour
+document.getElementById('text-color').addEventListener('input', (e) => {
+  const obj = fabricCanvas.getActiveObject();
+  if (obj?.type === 'i-text') {
+    obj.set('fill', e.target.value);
+    fabricCanvas.renderAll();
+  }
+});
+
+// Stroke colour
+document.getElementById('stroke-color').addEventListener('input', (e) => {
+  const obj = fabricCanvas.getActiveObject();
+  if (obj?.type === 'i-text') {
+    const stroke = e.target.value;
+    obj.set('stroke', stroke);
+    obj.set('strokeWidth', parseInt(document.getElementById('text-size').value, 10) * 0.03);
+    fabricCanvas.renderAll();
+  }
+});
+
+/* ── Keep HTML controls in sync when user clicks a Fabric object ── */
+function syncControlsToObject(obj) {
+  if (!obj) {
+    document.getElementById('object-info').textContent =
+      'Select an object on the canvas to see its properties.';
+    return;
+  }
+
+  if (obj.type === 'i-text') {
+    document.getElementById('text-content').value = obj.text;
+
+    const sz = obj.fontSize || 80;
+    document.getElementById('text-size').value = sz;
+    document.getElementById('text-size-val').textContent = sz;
+    document.getElementById('text-color').value = obj.fill || '#000000';
+
+    isBold      = obj.fontWeight === 'bold';
+    isItalic    = obj.fontStyle  === 'italic';
+    isUnderline = !!obj.underline;
+    document.getElementById('bold-btn').classList.toggle('active', isBold);
+    document.getElementById('italic-btn').classList.toggle('active', isItalic);
+    document.getElementById('underline-btn').classList.toggle('active', isUnderline);
+
+    // Highlight the matching font chip
+    document.querySelectorAll('#font-chips .font-chip').forEach(chip => {
+      chip.classList.toggle('active', chip.dataset.font === obj.fontFamily);
+    });
+    selectedFont = obj.fontFamily || selectedFont;
+
+    document.getElementById('object-info').textContent =
+      `Text · ${sz}px · ${obj.fontFamily?.split(',')[0].trim()}`;
+  } else {
+    document.getElementById('object-info').textContent =
+      `Image · ${Math.round(obj.getScaledWidth())} × ${Math.round(obj.getScaledHeight())} px`;
+  }
+}
+
+fabricCanvas.on('selection:created', (e) => syncControlsToObject(e.selected?.[0]));
+fabricCanvas.on('selection:updated', (e) => syncControlsToObject(e.selected?.[0]));
+fabricCanvas.on('selection:cleared',  () => syncControlsToObject(null));
+
+/* ════════════════════════════════════════════════════════════════════
+   ⑧ LAYER CONTROLS
+════════════════════════════════════════════════════════════════════ */
+document.getElementById('bring-forward').addEventListener('click', () => {
+  const obj = fabricCanvas.getActiveObject();
+  if (obj) { fabricCanvas.bringForward(obj, true); fabricCanvas.renderAll(); }
+});
+document.getElementById('send-back').addEventListener('click', () => {
+  const obj = fabricCanvas.getActiveObject();
+  if (obj) { fabricCanvas.sendBackwards(obj, true); fabricCanvas.renderAll(); }
+});
+document.getElementById('duplicate-obj').addEventListener('click', () => {
+  const obj = fabricCanvas.getActiveObject();
+  if (!obj) return;
+  obj.clone((cloned) => {
+    cloned.set({ left: obj.left + 20, top: obj.top + 20 });
+    fabricCanvas.add(cloned);
+    fabricCanvas.setActiveObject(cloned);
+    fabricCanvas.renderAll();
+  });
+});
+document.getElementById('delete-obj').addEventListener('click', () => {
+  const obj = fabricCanvas.getActiveObject();
+  if (obj) { fabricCanvas.remove(obj); fabricCanvas.renderAll(); }
+});
+document.getElementById('clear-all').addEventListener('click', () => {
+  if (!confirm('Clear all design elements?')) return;
+  fabricCanvas.getObjects().forEach(o => fabricCanvas.remove(o));
+  fabricCanvas.renderAll();
+});
+
+// Keyboard: Delete / Backspace removes the active object
+document.addEventListener('keydown', (e) => {
+  if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
+  if (e.key === 'Delete' || e.key === 'Backspace') {
+    const obj = fabricCanvas.getActiveObject();
+    if (obj && !obj.isEditing) {
+      fabricCanvas.remove(obj);
+      fabricCanvas.renderAll();
+    }
+  }
+});
+
+/* ════════════════════════════════════════════════════════════════════
+   ⑨ ANIMATION LOOP
+   ─────────────────────────────────────────────────────────────────
+   Every frame:
+   1. Update damped orbit controls
+   2. If Fabric rendered since last frame → push CanvasTexture update
+   3. Render Three.js scene
+════════════════════════════════════════════════════════════════════ */
+function animate() {
+  requestAnimationFrame(animate);
+
+  orbitControls.update();
+
+  if (textureNeedsUpdate) {
+    fabricTexture.needsUpdate = true;
+    textureNeedsUpdate = false;
+  }
+
+  renderer.render(scene, camera);
+}
+animate();
+
+/* ════════════════════════════════════════════════════════════════════
+   ⑩ RESIZE HANDLER
+════════════════════════════════════════════════════════════════════ */
+window.addEventListener('resize', () => {
+  const w = viewport.clientWidth;
+  const h = viewport.clientHeight;
+  camera.aspect = w / h;
+  camera.updateProjectionMatrix();
+  renderer.setSize(w, h);
+});
+
+</script>
+</body>
+</html>

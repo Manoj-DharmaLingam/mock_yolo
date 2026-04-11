@@ -1,0 +1,129 @@
+.offers-page {
+  background: #faf9f7;
+  min-height: 70vh;
+  padding-bottom: 5rem;
+}
+
+/* Hero */
+.offers-page__hero {
+  background: #fff;
+  border-bottom: 1px solid #e8ddd5;
+  padding: 2.5rem 0 2rem;
+}
+
+.offers-page__breadcrumb {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.8rem;
+  color: #9a8a7a;
+  margin-bottom: 0.75rem;
+}
+
+.offers-page__breadcrumb a { color: #9a8a7a; text-decoration: none; }
+.offers-page__breadcrumb a:hover { color: #5b3d8a; }
+
+.offers-page__title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: 400;
+  color: #1a1a1a;
+  margin-bottom: 0.5rem;
+}
+
+.offers-page__desc {
+  font-size: 0.9375rem;
+  color: #6b5e52;
+  max-width: 500px;
+  line-height: 1.7;
+}
+
+/* Tabs bar */
+.offers-page__tabs-bar {
+  background: #fff;
+  border-bottom: 1px solid #e8ddd5;
+  position: sticky;
+  top: 68px;
+  z-index: 100;
+}
+
+.offers-page__tabs {
+  display: flex;
+  gap: 0;
+}
+
+.offers-tab {
+  padding: 1rem 1.75rem;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.8125rem;
+  font-weight: 500;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: #6a6a6a;
+  background: none;
+  border: none;
+  border-bottom: 2px solid transparent;
+  cursor: pointer;
+  transition: color 0.2s, border-color 0.2s;
+  white-space: nowrap;
+}
+
+.offers-tab:hover {
+  color: #5b3d8a;
+}
+
+.offers-tab.active {
+  color: #5b3d8a;
+  border-bottom-color: #5b3d8a;
+  font-weight: 600;
+}
+
+/* Section */
+.offers-page__section {
+  padding-top: 3rem;
+}
+
+.offers-page__section-header {
+  margin-bottom: 2.5rem;
+}
+
+.offers-page__product-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.5rem;
+}
+
+/* Loading */
+.offers-page__loading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 30vh;
+}
+
+.offers-page__spinner {
+  width: 36px;
+  height: 36px;
+  border: 3px solid #e0d5f0;
+  border-top-color: #5b3d8a;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin { to { transform: rotate(360deg); } }
+
+@media (max-width: 900px) {
+  .offers-page__product-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 480px) {
+  .offers-page__product-grid {
+    grid-template-columns: 1fr;
+  }
+  .offers-tab {
+    padding: 0.875rem 1rem;
+    font-size: 0.75rem;
+  }
+}

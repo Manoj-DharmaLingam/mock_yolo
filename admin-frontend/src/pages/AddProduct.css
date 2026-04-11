@@ -1,0 +1,71 @@
+.add-product {}
+.add-product__grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.25rem;
+  margin-bottom: 1.5rem;
+}
+.add-product__col {}
+.add-product__section-title {
+  font-family: var(--font-display);
+  font-size: 1rem;
+  letter-spacing: 0.08em;
+  color: var(--black);
+  margin-bottom: 1.25rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1.5px solid var(--gray-200);
+}
+.add-product__row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+.add-product__flags {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+.add-product__upload-row {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin: 0.75rem 0 0.5rem;
+}
+.add-product__hint {
+  font-size: 0.75rem;
+  color: var(--gray-400);
+  margin-bottom: 0.4rem;
+}
+.add-product__chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+}
+.add-product__chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  background: var(--gray-100);
+  border: 1px solid var(--gray-200);
+  padding: 0.25rem 0.5rem;
+  font-size: 0.78rem;
+  font-weight: 500;
+}
+.add-product__chip button {
+  background: none;
+  border: none;
+  font-size: 0.65rem;
+  color: var(--gray-600);
+  cursor: pointer;
+  padding: 0 0.1rem;
+}
+.add-product__chip button:hover { color: var(--red); }
+.add-product__submit {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+@media (max-width: 900px) {
+  .add-product__grid { grid-template-columns: 1fr; }
+  .add-product__row { grid-template-columns: 1fr; }
+}

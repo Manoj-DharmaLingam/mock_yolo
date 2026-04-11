@@ -1,0 +1,135 @@
+.yolo-products { background: #f7f7f7; min-height: 70vh; padding-bottom: 5rem; }
+
+.yolo-products__hero {
+  background: #0a0a0a;
+  padding: 2.5rem 0 2rem;
+  border-bottom: 2px solid #0a0a0a;
+}
+.yolo-breadcrumb {
+  display: flex; align-items: center; gap: 0.5rem;
+  font-size: 0.72rem; color: rgba(255,255,255,0.35); margin-bottom: 0.6rem;
+  letter-spacing: 0.06em; text-transform: uppercase;
+}
+.yolo-breadcrumb a { color: rgba(255,255,255,0.35); text-decoration: none; }
+.yolo-breadcrumb a:hover { color: #e8ff00; }
+.yolo-products__title {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(2.5rem, 6vw, 5rem);
+  letter-spacing: 0.04em;
+  color: #fff;
+  line-height: 1;
+}
+.yolo-products__count {
+  font-size: 0.8rem; color: rgba(255,255,255,0.35);
+  margin-top: 0.4rem; letter-spacing: 0.06em; text-transform: uppercase;
+}
+.yolo-products__count strong { color: #e8ff00; }
+
+.yolo-products__layout {
+  display: grid;
+  grid-template-columns: 220px 1fr;
+  gap: 2.5rem;
+  padding-top: 2.5rem;
+  align-items: start;
+}
+
+/* Sidebar */
+.yolo-products__sidebar {
+  position: sticky; top: 80px;
+  display: flex; flex-direction: column; gap: 0.75rem;
+}
+.yolo-filter-block {
+  background: #fff;
+  border: 1.5px solid #e0e0e0;
+  padding: 1.1rem;
+}
+.yolo-filter-block__title {
+  font-size: 0.65rem; font-weight: 700; letter-spacing: 0.16em;
+  text-transform: uppercase; color: #0a0a0a;
+  margin-bottom: 0.875rem;
+  display: flex; justify-content: space-between; align-items: center;
+}
+.yolo-filter-price-val { color: #999; font-weight: 400; letter-spacing: 0; text-transform: none; }
+
+.yolo-filter-cat {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0.5rem 0.5rem; width: 100%;
+  font-size: 0.82rem; color: #555;
+  background: none; border: none; cursor: pointer;
+  text-align: left; transition: background 0.12s, color 0.12s;
+  font-family: 'Space Grotesk', sans-serif;
+}
+.yolo-filter-cat span:last-child { font-size: 0.7rem; color: #bbb; }
+.yolo-filter-cat:hover { background: #f0f0f0; color: #0a0a0a; }
+.yolo-filter-cat.active { background: #0a0a0a; color: #e8ff00; font-weight: 600; }
+.yolo-filter-cat.active span:last-child { color: rgba(232,255,0,0.6); }
+
+.yolo-filter-range {
+  width: 100%; -webkit-appearance: none; appearance: none;
+  height: 3px; background: #e0e0e0; border-radius: 1px;
+  outline: none; margin: 0.4rem 0; cursor: pointer;
+}
+.yolo-filter-range::-webkit-slider-thumb {
+  -webkit-appearance: none; width: 16px; height: 16px;
+  border-radius: 50%; background: #0a0a0a; cursor: pointer;
+}
+.yolo-filter-range-labels {
+  display: flex; justify-content: space-between;
+  font-size: 0.7rem; color: #bbb; margin-top: 0.2rem;
+}
+
+.yolo-filter-clear {
+  width: 100%; padding: 0.6rem;
+  background: none; border: 1.5px solid #e0e0e0;
+  font-size: 0.75rem; font-weight: 700;
+  letter-spacing: 0.1em; text-transform: uppercase;
+  color: #555; cursor: pointer; transition: all 0.18s;
+  font-family: 'Space Grotesk', sans-serif;
+}
+.yolo-filter-clear:hover { border-color: #0a0a0a; color: #0a0a0a; background: #f0f0f0; }
+
+/* Toolbar */
+.yolo-products__toolbar {
+  display: flex; align-items: center; gap: 1rem; margin-bottom: 1.5rem; flex-wrap: wrap;
+}
+.yolo-search-wrap { position: relative; flex: 1; min-width: 180px; }
+.yolo-search-icon {
+  position: absolute; left: 0.8rem; top: 50%; transform: translateY(-50%);
+  width: 15px; height: 15px; color: #bbb; pointer-events: none;
+}
+.yolo-search {
+  width: 100%; background: #fff; border: 1.5px solid #e0e0e0;
+  padding: 0.625rem 0.875rem 0.625rem 2.4rem;
+  font-size: 0.875rem; color: #0a0a0a; transition: border-color 0.18s;
+  font-family: 'Space Grotesk', sans-serif;
+}
+.yolo-search:focus { border-color: #0a0a0a; outline: none; }
+.yolo-search::placeholder { color: #bbb; }
+
+.yolo-sort-select {
+  background: #fff; border: 1.5px solid #e0e0e0;
+  padding: 0.625rem 1rem; font-size: 0.875rem; color: #0a0a0a;
+  cursor: pointer; min-width: 170px; transition: border-color 0.18s;
+  font-family: 'Space Grotesk', sans-serif;
+}
+.yolo-sort-select:focus { border-color: #0a0a0a; outline: none; }
+
+.yolo-loading {
+  display: flex; align-items: center; justify-content: center; min-height: 30vh;
+}
+.yolo-spinner {
+  width: 32px; height: 32px;
+  border: 3px solid #e0e0e0; border-top-color: #0a0a0a;
+  border-radius: 50%; animation: spin 0.7s linear infinite;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+
+@media (max-width: 900px) {
+  .yolo-products__layout { grid-template-columns: 1fr; }
+  .yolo-products__sidebar { position: static; display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; }
+}
+@media (max-width: 600px) {
+  .yolo-products__sidebar { grid-template-columns: 1fr; }
+  .yolo-products__toolbar { flex-direction: column; align-items: stretch; }
+  .yolo-sort-select { min-width: 100%; }
+}

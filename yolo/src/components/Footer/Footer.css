@@ -1,0 +1,144 @@
+.yolo-footer { background: #0a0a0a; color: rgba(255,255,255,0.55); }
+
+.yolo-footer__logo-bar {
+  border-bottom: 1px solid rgba(255,255,255,0.07);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem 0 1.5rem;
+  overflow: hidden;
+}
+.yolo-footer__big-logo {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(4rem, 12vw, 10rem);
+  letter-spacing: 0.3em;
+  color: rgba(255,255,255,0.06);
+  line-height: 1;
+  user-select: none;
+}
+
+.yolo-footer__grid {
+  display: grid;
+  grid-template-columns: 1.8fr 1fr 1fr 1fr 1.5fr;
+  gap: 3rem;
+  padding: 3.5rem 0;
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+}
+
+.yolo-footer__tagline {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1.4rem;
+  letter-spacing: 0.1em;
+  color: rgba(255,255,255,0.9);
+  margin-bottom: 0.75rem;
+}
+.yolo-footer__about {
+  font-size: 0.825rem;
+  line-height: 1.8;
+  color: rgba(255,255,255,0.35);
+  max-width: 260px;
+  margin-bottom: 1.25rem;
+}
+.yolo-footer__socials { display: flex; gap: 0.5rem; }
+.yolo-footer__social {
+  width: 32px; height: 32px;
+  border-radius: 50%;
+  border: 1px solid rgba(255,255,255,0.12);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: rgba(255,255,255,0.4);
+  text-decoration: none;
+  transition: all 0.18s;
+}
+.yolo-footer__social:hover {
+  border-color: #e8ff00;
+  color: #e8ff00;
+  background: rgba(232,255,0,0.08);
+}
+
+.yolo-footer__heading {
+  font-size: 0.62rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.8);
+  margin-bottom: 1.1rem;
+}
+.yolo-footer__links { display: flex; flex-direction: column; gap: 0.55rem; }
+.yolo-footer__link {
+  font-size: 0.83rem;
+  color: rgba(255,255,255,0.38);
+  text-decoration: none;
+  transition: color 0.15s, padding-left 0.15s;
+  display: inline-block;
+}
+.yolo-footer__link:hover { color: #e8ff00; padding-left: 0.25rem; }
+
+.yolo-footer__nl-text {
+  font-size: 0.8rem;
+  color: rgba(255,255,255,0.35);
+  line-height: 1.7;
+  margin-bottom: 0.875rem;
+}
+.yolo-footer__nl-form { display: flex; }
+.yolo-footer__nl-input {
+  flex: 1;
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.1);
+  padding: 0.65rem 0.875rem;
+  color: white;
+  font-size: 0.85rem;
+  font-family: 'Space Grotesk', sans-serif;
+  transition: border-color 0.18s;
+}
+.yolo-footer__nl-input::placeholder { color: rgba(255,255,255,0.22); }
+.yolo-footer__nl-input:focus { border-color: #e8ff00; outline: none; }
+.yolo-footer__nl-btn {
+  background: #e8ff00;
+  color: #0a0a0a;
+  border: none;
+  padding: 0.65rem 1.25rem;
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 0.95rem;
+  letter-spacing: 0.1em;
+  cursor: pointer;
+  transition: background 0.18s;
+}
+.yolo-footer__nl-btn:hover { background: #fff; }
+
+.yolo-footer__bottom {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.25rem 0;
+  font-size: 0.75rem;
+  color: rgba(255,255,255,0.2);
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+.yolo-footer__certs {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+.yolo-footer__certs span {
+  font-size: 0.62rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 0.2rem 0.65rem;
+  border: 1px solid rgba(255,255,255,0.07);
+  border-radius: 100px;
+}
+
+@media (max-width: 1100px) {
+  .yolo-footer__grid { grid-template-columns: 1fr 1fr 1fr; gap: 2rem; }
+  .yolo-footer__brand { grid-column: 1 / -1; }
+}
+@media (max-width: 768px) {
+  .yolo-footer__grid { grid-template-columns: 1fr 1fr; }
+  .yolo-footer__nl-form { flex-direction: column; }
+}
+@media (max-width: 480px) {
+  .yolo-footer__grid { grid-template-columns: 1fr; }
+}

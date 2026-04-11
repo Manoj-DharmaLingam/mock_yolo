@@ -1,0 +1,1171 @@
+/* ============================================
+   YOLO — Checkout Page Styles
+   ============================================ */
+
+.checkout-page {
+  background: #fff;
+  padding: 3rem 0 5rem;
+  min-height: 70vh;
+}
+
+.checkout-header {
+  margin-bottom: 2.5rem;
+}
+
+.checkout-title {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(2rem, 4vw, 3rem);
+  letter-spacing: 0.03em;
+  color: #0a0a0a;
+  margin: 0;
+}
+
+/* Steps indicator */
+.checkout-steps {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-top: 1rem;
+}
+
+.checkout-step {
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: #aaa;
+  padding: 0.3rem 0.75rem;
+  border-radius: 2px;
+}
+
+.checkout-step.active {
+  color: #0a0a0a;
+  background: #e8ff00;
+}
+
+.checkout-step.done {
+  color: #27ae60;
+}
+
+.checkout-step-sep {
+  color: #ccc;
+  font-size: 0.9rem;
+}
+
+/* Main layout: form + sidebar */
+.checkout-layout {
+  display: grid;
+  grid-template-columns: 1fr 360px;
+  gap: 2.5rem;
+  align-items: start;
+}
+
+.checkout-main { }
+
+.checkout-sidebar {
+  position: sticky;
+  top: 100px;
+}
+
+/* Card */
+.checkout-card {
+  border: 1px solid #e0e0e0;
+  border-radius: 4px;
+  padding: 2rem;
+}
+
+.checkout-card__title {
+  font-size: 1rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin: 0 0 1.5rem;
+  color: #0a0a0a;
+}
+
+/* Alert */
+.checkout-alert {
+  padding: 0.75rem 1rem;
+  background: #fdecea;
+  color: #c0392b;
+  border-radius: 4px;
+  font-size: 0.875rem;
+  margin-bottom: 1.25rem;
+}
+
+/* Fields grid */
+.checkout-fields {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.25rem;
+  margin-bottom: 1.5rem;
+}
+
+.checkout-field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.checkout-field--full {
+  grid-column: 1 / -1;
+}
+
+.checkout-field label {
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #555;
+}
+
+.checkout-field input,
+.checkout-field textarea {
+  padding: 0.7rem 0.875rem;
+  border: 1px solid #e0e0e0;
+  border-radius: 4px;
+  font-size: 0.9rem;
+  font-family: inherit;
+  outline: none;
+  transition: border-color 0.18s;
+  resize: vertical;
+}
+
+.checkout-field input:focus,
+.checkout-field textarea:focus {
+  border-color: #0a0a0a;
+}
+
+.checkout-next-btn {
+  width: 100%;
+}
+
+/* Payment methods */
+.checkout-payment-methods {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.checkout-pm {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem 1.25rem;
+  border: 2px solid #e0e0e0;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: border-color 0.18s, background 0.18s;
+}
+
+.checkout-pm input[type="radio"] {
+  accent-color: #0a0a0a;
+}
+
+.checkout-pm.active {
+  border-color: #0a0a0a;
+  background: #f9f9f9;
+}
+
+.checkout-pm__icon {
+  font-size: 1.5rem;
+  flex-shrink: 0;
+}
+
+.checkout-pm__name {
+  font-weight: 700;
+  font-size: 0.9rem;
+  color: #0a0a0a;
+}
+
+.checkout-pm__desc {
+  font-size: 0.78rem;
+  color: #888;
+  margin-top: 0.15rem;
+}
+
+/* UPI panel — shown immediately when UPI selected */
+.checkout-upi-panel {
+  background: #f8f9ff;
+  border: 1.5px solid #d0d0f0;
+  border-radius: 8px;
+  margin-bottom: 1.5rem;
+  overflow: hidden;
+}
+
+.checkout-upi-panel__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #0a0a0a;
+  color: #fff;
+  padding: 0.75rem 1.25rem;
+}
+
+.checkout-upi-panel__title {
+  font-size: 0.9rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.checkout-upi-panel__amount {
+  font-size: 1.25rem;
+  font-weight: 800;
+  font-family: 'Bebas Neue', sans-serif;
+  letter-spacing: 0.04em;
+}
+
+.checkout-upi-panel__body {
+  display: flex;
+  gap: 2rem;
+  padding: 1.5rem;
+  align-items: flex-start;
+}
+
+.checkout-upi-qr-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  flex-shrink: 0;
+}
+
+.checkout-upi-qr-wrap svg {
+  border: 3px solid #0a0a0a;
+  border-radius: 6px;
+  display: block;
+}
+
+.checkout-upi-qr-label {
+  font-size: 0.75rem;
+  color: #666;
+  text-align: center;
+}
+
+.checkout-upi-panel__info {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  flex: 1;
+}
+
+/* App buttons */
+.checkout-upi-apps {
+  display: flex;
+  gap: 0.6rem;
+  flex-wrap: wrap;
+}
+
+.checkout-upi-app {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.45rem 0.9rem;
+  border-radius: 100px;
+  font-size: 0.82rem;
+  font-weight: 600;
+  text-decoration: none;
+  border: 1.5px solid transparent;
+  transition: transform 0.15s, box-shadow 0.15s;
+}
+
+.checkout-upi-app:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 3px 10px rgba(0,0,0,0.15);
+}
+
+.checkout-upi-app__icon {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.75rem;
+  font-weight: 900;
+  color: #fff;
+}
+
+.checkout-upi-app--gpay {
+  background: #fff;
+  border-color: #ddd;
+  color: #1a73e8;
+}
+.checkout-upi-app--gpay .checkout-upi-app__icon { background: #1a73e8; }
+
+.checkout-upi-app--phonepe {
+  background: #fff;
+  border-color: #ddd;
+  color: #5f259f;
+}
+.checkout-upi-app--phonepe .checkout-upi-app__icon { background: #5f259f; }
+
+.checkout-upi-app--paytm {
+  background: #fff;
+  border-color: #ddd;
+  color: #00baf2;
+}
+.checkout-upi-app--paytm .checkout-upi-app__icon { background: #00baf2; }
+
+/* UPI ID row */
+.checkout-upi-id-row {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  flex-wrap: wrap;
+  background: #fff;
+  border: 1px dashed #aaa;
+  border-radius: 6px;
+  padding: 0.5rem 0.75rem;
+}
+
+.checkout-upi-id-label {
+  font-size: 0.75rem;
+  color: #888;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  white-space: nowrap;
+}
+
+.checkout-upi-id-value {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: #0a0a0a;
+  flex: 1;
+  word-break: break-all;
+}
+
+.checkout-upi-copy {
+  background: #0a0a0a;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  padding: 0.3rem 0.7rem;
+  font-size: 0.78rem;
+  font-weight: 600;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.checkout-upi-copy:hover { background: #333; }
+
+/* Steps */
+.checkout-upi-steps {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.checkout-upi-step {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-size: 0.82rem;
+  color: #555;
+}
+
+.checkout-upi-step > span:first-child {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: #0a0a0a;
+  color: #fff;
+  font-size: 0.72rem;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.checkout-upi-panel__footer {
+  padding: 0.5rem 1.25rem;
+  background: #f0f0ff;
+  border-top: 1px solid #dde;
+  font-size: 0.75rem;
+  color: #888;
+}
+
+.checkout-upi-ref {
+  font-family: monospace;
+  font-size: 0.78rem;
+}
+
+/* Error alert improvements */
+.checkout-alert--error {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.5rem;
+}
+
+.checkout-alert__icon {
+  font-size: 1rem;
+  flex-shrink: 0;
+}
+
+/* Mobile — stack QR and info vertically */
+@media (max-width: 600px) {
+  .checkout-upi-panel__body {
+    flex-direction: column;
+    align-items: center;
+    gap: 1.25rem;
+  }
+
+  .checkout-upi-panel__info {
+    width: 100%;
+  }
+}
+
+/* UPI box (legacy, kept for reference) */
+.checkout-upi-box {
+  display: none;
+}
+
+/* Payment actions */
+.checkout-payment-actions {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+}
+
+/* Order summary sidebar */
+.checkout-order-summary {
+  border: 1px solid #e0e0e0;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.checkout-order-summary__title {
+  background: #0a0a0a;
+  color: #e8ff00;
+  padding: 0.85rem 1.25rem;
+  font-size: 0.8rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+.checkout-order-items {
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+  border-bottom: 1px solid #f0f0f0;
+  max-height: 300px;
+  overflow-y: auto;
+}
+
+.checkout-order-item {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.checkout-order-item__img {
+  width: 52px;
+  height: 52px;
+  object-fit: cover;
+  border-radius: 4px;
+  border: 1px solid #eee;
+  flex-shrink: 0;
+}
+
+.checkout-order-item__info {
+  flex: 1;
+  min-width: 0;
+}
+
+.checkout-order-item__name {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #0a0a0a;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.checkout-order-item__meta {
+  font-size: 0.75rem;
+  color: #888;
+  margin-top: 0.15rem;
+}
+
+.checkout-order-item__price {
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: #0a0a0a;
+  flex-shrink: 0;
+}
+
+/* Summary rows */
+.checkout-summary-rows {
+  padding: 1rem 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.checkout-summary-row {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.875rem;
+  color: #555;
+}
+
+.checkout-summary-row .free {
+  color: #27ae60;
+  font-weight: 700;
+}
+
+.checkout-summary-row--total {
+  font-size: 1rem;
+  font-weight: 700;
+  color: #0a0a0a;
+  padding-top: 0.5rem;
+  border-top: 2px solid #0a0a0a;
+  margin-top: 0.25rem;
+}
+
+/* Success screen */
+.checkout-success {
+  text-align: center;
+  padding: 5rem 1rem;
+  max-width: 480px;
+  margin: 0 auto;
+}
+
+.checkout-success__icon {
+  width: 80px;
+  height: 80px;
+  background: #e8ff00;
+  color: #0a0a0a;
+  font-size: 2.5rem;
+  font-weight: 900;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 1.5rem;
+}
+
+.checkout-success__title {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 2.5rem;
+  letter-spacing: 0.04em;
+  color: #0a0a0a;
+  margin: 0 0 0.75rem;
+}
+
+.checkout-success__sub {
+  color: #666;
+  font-size: 0.95rem;
+  line-height: 1.6;
+  margin-bottom: 1rem;
+}
+
+.checkout-success__id {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: #888;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  margin-bottom: 1rem;
+}
+
+/* UPI reminder on success */
+.checkout-upi-reminder {
+  background: #f9f9ff;
+  border: 1px solid #c5c5f0;
+  border-radius: 4px;
+  padding: 1.25rem;
+  margin-top: 1rem;
+  text-align: center;
+}
+
+.checkout-upi-reminder__label {
+  font-size: 0.85rem;
+  color: #555;
+  margin-bottom: 0.5rem;
+}
+
+.checkout-upi-reminder__id {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: #0a0a0a;
+  letter-spacing: 0.04em;
+}
+
+.checkout-upi-reminder__note {
+  font-size: 0.78rem;
+  color: #888;
+  margin-top: 0.5rem;
+}
+
+/* Responsive */
+@media (max-width: 900px) {
+  .checkout-layout {
+    grid-template-columns: 1fr;
+  }
+  .checkout-sidebar {
+    position: static;
+    order: -1;
+  }
+}
+
+@media (max-width: 600px) {
+  .checkout-fields {
+    grid-template-columns: 1fr;
+  }
+  .checkout-payment-actions {
+    flex-direction: column;
+  }
+  .checkout-payment-actions .btn {
+    width: 100%;
+  }
+}
+
+/* ── Saved Address Picker ─────────────────────────────────────── */
+
+.checkout-addr-picker {
+  margin-bottom: 1.5rem;
+}
+
+.checkout-addr-picker__title {
+  font-size: 0.8rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: #6b7280;
+  margin-bottom: 0.75rem;
+}
+
+.checkout-addr-picker__loading {
+  color: #9ca3af;
+  font-size: 0.85rem;
+}
+
+.checkout-addr-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 0.65rem;
+}
+
+.checkout-addr-card {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.6rem;
+  border: 1.5px solid #e5e7eb;
+  border-radius: 10px;
+  padding: 0.85rem;
+  cursor: pointer;
+  transition: border-color 0.15s, background 0.15s;
+}
+
+.checkout-addr-card input[type="radio"] {
+  margin-top: 2px;
+  flex-shrink: 0;
+  accent-color: #111;
+}
+
+.checkout-addr-card.selected {
+  border-color: #111;
+  background: #f9fafb;
+}
+
+.checkout-addr-card--new {
+  border-style: dashed;
+  border-color: #d1d5db;
+}
+
+.checkout-addr-card__top {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  margin-bottom: 2px;
+}
+
+.checkout-addr-card__label {
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.checkout-addr-card__default {
+  font-size: 0.65rem;
+  font-weight: 700;
+  background: #111;
+  color: #fff;
+  border-radius: 99px;
+  padding: 1px 6px;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.checkout-addr-card__name {
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: #111;
+}
+
+.checkout-addr-card__text {
+  font-size: 0.78rem;
+  color: #6b7280;
+  margin-top: 3px;
+  line-height: 1.4;
+}
+
+/* ── Save address checkbox ────────────────────────────────────── */
+
+.checkout-save-addr {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 1rem;
+  margin-bottom: 0.25rem;
+  cursor: pointer;
+  font-size: 0.88rem;
+  color: #374151;
+}
+
+.checkout-save-addr input[type="checkbox"] {
+  accent-color: #111;
+  width: 16px;
+  height: 16px;
+  flex-shrink: 0;
+}
+
+/* ── UPI Scan Screen ─────────────────────────────────────────────── */
+.checkout-upi-scan {
+  max-width: 520px;
+  margin: 0 auto;
+  padding: 2rem 0;
+  text-align: center;
+}
+
+.checkout-upi-scan__header h2 {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 2rem;
+  letter-spacing: 0.04em;
+  color: #0a0a0a;
+  margin: 0 0 0.4rem;
+}
+
+.checkout-upi-scan__header p {
+  color: #666;
+  font-size: 0.9rem;
+  margin: 0 0 1.5rem;
+}
+
+.checkout-upi-scan__qr-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.checkout-upi-scan__qr-img {
+  width: 240px;
+  height: 240px;
+  border: 4px solid #0a0a0a;
+  border-radius: 8px;
+  display: block;
+}
+
+.checkout-upi-scan__apps {
+  display: flex;
+  gap: 0.6rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.checkout-upi-scan__status {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.checkout-upi-scan__pulse {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: #444;
+  font-size: 0.9rem;
+}
+
+.checkout-upi-pulse-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #22c55e;
+  animation: upi-pulse 1.2s ease-in-out infinite;
+  display: inline-block;
+}
+
+@keyframes upi-pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.4; transform: scale(0.8); }
+}
+
+.checkout-upi-scan__timer {
+  font-size: 0.8rem;
+  color: #888;
+  font-variant-numeric: tabular-nums;
+}
+
+.checkout-upi-scan__timer--urgent {
+  color: #ef4444;
+  font-weight: 700;
+}
+
+/* Payment detected / placing */
+.checkout-upi-scan__detected {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 2rem;
+  color: #166534;
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.checkout-upi-scan__detected-icon {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background: #dcfce7;
+  color: #16a34a;
+  font-size: 1.75rem;
+  font-weight: 900;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.checkout-upi-scan__spinner {
+  width: 40px;
+  height: 40px;
+  border: 3px solid #e5e7eb;
+  border-top-color: #0a0a0a;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* Error states */
+.checkout-upi-scan__error {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 2rem;
+}
+
+.checkout-upi-scan__error-icon {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background: #fee2e2;
+  color: #dc2626;
+  font-size: 1.75rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.checkout-upi-scan__error-title {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #0a0a0a;
+}
+
+.checkout-upi-scan__error p {
+  color: #666;
+  font-size: 0.9rem;
+  max-width: 320px;
+  margin: 0;
+}
+
+.checkout-upi-scan__back {
+  background: none;
+  border: none;
+  color: #666;
+  font-size: 0.85rem;
+  cursor: pointer;
+  padding: 0.5rem;
+  margin-top: 0.5rem;
+}
+
+.checkout-upi-scan__back:hover { color: #0a0a0a; text-decoration: underline; }
+
+/* UPI info note on payment step */
+.checkout-upi-info {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.6rem;
+  background: #f0fff4;
+  border: 1px solid #bbf7d0;
+  border-radius: 6px;
+  padding: 0.75rem 1rem;
+  font-size: 0.85rem;
+  color: #166534;
+  margin-bottom: 1rem;
+}
+
+.checkout-upi-info__icon { font-size: 1rem; flex-shrink: 0; }
+
+/* ════════════════════════════════════════════
+   INVOICE STYLES
+   ════════════════════════════════════════════ */
+
+.inv-page { background: #f5f5f5; padding-bottom: 4rem; }
+
+/* Success banner (screen only) */
+.inv-success-banner {
+  background: #dcfce7;
+  border-bottom: 2px solid #86efac;
+  padding: 1rem 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+.inv-success-banner__icon {
+  width: 44px; height: 44px;
+  border-radius: 50%;
+  background: #16a34a;
+  color: #fff;
+  font-size: 1.25rem;
+  font-weight: 900;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+}
+.inv-success-banner__title { font-weight: 700; font-size: 1rem; color: #14532d; }
+.inv-success-banner__sub { font-size: 0.85rem; color: #166534; margin-top: 0.15rem; }
+
+/* Invoice document */
+.invoice {
+  background: #fff;
+  border: 1px solid #e0e0e0;
+  border-radius: 6px;
+  overflow: hidden;
+  max-width: 780px;
+  margin: 0 auto 1.5rem;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+}
+
+/* Header */
+.invoice__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  background: #0a0a0a;
+  color: #fff;
+  padding: 1.75rem 2rem;
+  gap: 1rem;
+}
+.invoice__brand { display: flex; flex-direction: column; }
+.invoice__logo {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 2.5rem;
+  letter-spacing: 0.08em;
+  color: #e8ff00;
+  line-height: 1;
+}
+.invoice__brand-sub { font-size: 0.7rem; letter-spacing: 0.2em; color: #aaa; text-transform: uppercase; }
+
+.invoice__meta { text-align: right; }
+.invoice__title {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1.6rem;
+  letter-spacing: 0.12em;
+  color: #e8ff00;
+  margin-bottom: 0.5rem;
+}
+.invoice__meta-row {
+  display: flex;
+  gap: 0.75rem;
+  justify-content: flex-end;
+  font-size: 0.82rem;
+  margin-bottom: 0.2rem;
+  color: #ccc;
+}
+.invoice__meta-row span { color: #888; }
+.invoice__meta-row strong { color: #fff; }
+
+.invoice__pm-badge {
+  display: inline-block;
+  padding: 0.15rem 0.5rem;
+  border-radius: 100px;
+  font-size: 0.78rem;
+}
+.invoice__pm-badge--cod { background: #f59e0b22; color: #f59e0b; border: 1px solid #f59e0b44; }
+.invoice__pm-badge--upi { background: #22c55e22; color: #16a34a; border: 1px solid #22c55e44; }
+
+/* Parties */
+.invoice__parties {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1px;
+  background: #e0e0e0;
+  border-bottom: 1px solid #e0e0e0;
+}
+.invoice__party {
+  background: #fafafa;
+  padding: 1.25rem 2rem;
+}
+.invoice__party-label {
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: #888;
+  margin-bottom: 0.35rem;
+  font-weight: 700;
+}
+.invoice__party-name { font-weight: 700; font-size: 1rem; color: #0a0a0a; margin-bottom: 0.15rem; }
+.invoice__party-detail { font-size: 0.85rem; color: #555; line-height: 1.5; }
+
+/* Items table */
+.invoice__table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.88rem;
+}
+.invoice__th {
+  background: #f5f5f5;
+  padding: 0.65rem 1.5rem;
+  text-align: left;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: #666;
+  border-bottom: 1px solid #e0e0e0;
+}
+.invoice__th--center { text-align: center; }
+.invoice__th--right { text-align: right; }
+
+.invoice__tr { border-bottom: 1px solid #f0f0f0; }
+.invoice__tr:last-child { border-bottom: 2px solid #e0e0e0; }
+
+.invoice__td {
+  padding: 0.85rem 1.5rem;
+  vertical-align: top;
+  color: #0a0a0a;
+}
+.invoice__td--center { text-align: center; }
+.invoice__td--right { text-align: right; font-variant-numeric: tabular-nums; }
+.invoice__item-name { font-weight: 600; }
+.invoice__item-meta { font-size: 0.78rem; color: #888; margin-top: 0.2rem; }
+
+/* Totals */
+.invoice__totals {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  padding: 1.25rem 2rem;
+  gap: 0.4rem;
+  border-bottom: 1px solid #e0e0e0;
+}
+.invoice__total-row {
+  display: flex;
+  gap: 3rem;
+  font-size: 0.88rem;
+  color: #555;
+  min-width: 220px;
+  justify-content: space-between;
+}
+.invoice__total-row span:last-child { font-variant-numeric: tabular-nums; }
+.invoice__total-row--discount { color: #16a34a; }
+.invoice__total-row--grand {
+  font-size: 1.1rem;
+  font-weight: 800;
+  color: #0a0a0a;
+  border-top: 2px solid #0a0a0a;
+  padding-top: 0.5rem;
+  margin-top: 0.25rem;
+}
+
+/* Tracking note */
+.invoice__track-note {
+  display: flex;
+  gap: 1rem;
+  align-items: flex-start;
+  padding: 1.25rem 2rem;
+  background: #fffbeb;
+  border-bottom: 1px solid #fde68a;
+}
+.invoice__track-note__icon { font-size: 1.5rem; flex-shrink: 0; }
+.invoice__track-note__title { font-weight: 600; color: #0a0a0a; font-size: 0.9rem; margin-bottom: 0.25rem; }
+.invoice__track-note__sub { font-size: 0.82rem; color: #555; line-height: 1.5; }
+
+/* Footer */
+.invoice__footer {
+  padding: 1rem 2rem;
+  text-align: center;
+  font-size: 0.8rem;
+  color: #888;
+}
+.invoice__footer-sub { font-size: 0.72rem; color: #bbb; margin-top: 0.2rem; }
+
+/* Action buttons */
+.inv-actions {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  flex-wrap: wrap;
+  max-width: 780px;
+  margin: 0 auto;
+}
+.inv-download-btn {
+  background: #0a0a0a !important;
+  color: #e8ff00 !important;
+  font-weight: 700 !important;
+}
+
+/* ════════════════════════════════════════════
+   PRINT STYLES — when user prints / saves PDF
+   ════════════════════════════════════════════ */
+@media print {
+  .no-print,
+  header, footer, nav,
+  .yolo-nav, .yolo-promo, .yolo-footer,
+  .inv-actions,
+  .inv-success-banner {
+    display: none !important;
+  }
+
+  body { background: #fff !important; }
+
+  .inv-page { background: #fff !important; padding: 0 !important; }
+
+  .invoice {
+    box-shadow: none !important;
+    border: none !important;
+    border-radius: 0 !important;
+    max-width: 100% !important;
+    margin: 0 !important;
+  }
+
+  .invoice__header {
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  .invoice__table, .invoice__th, .invoice__td {
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  @page {
+    margin: 1cm;
+    size: A4;
+  }
+}
